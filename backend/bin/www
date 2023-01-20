@@ -17,5 +17,5 @@ db.sequelize
     app.listen(port, () => {});
   })
   .catch((err) => {
-    // console.error(err);
+    console.error(err);
   });
