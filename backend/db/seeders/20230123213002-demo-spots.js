@@ -60,6 +60,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     options.tableName = "Spots";
-    return queryInterface.bulkDelete("Spots", null, {});
+    return queryInterface.bulkDelete(options, null, {});
   },
 };
