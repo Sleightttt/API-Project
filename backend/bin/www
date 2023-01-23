@@ -14,8 +14,10 @@ db.sequelize
   .authenticate()
   .then(() => {
     // Start listening for connections
+    console.log("Database connection success! Sequelize is ready to use...");
     app.listen(port, () => {});
   })
   .catch((err) => {
+    console.log("Database connection failure.");
     console.error(err);
   });
