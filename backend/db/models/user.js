@@ -40,7 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
     static associate(models) {
-      User.hasMany(models.Spot, { foreignKey: "id" });
+      User.hasMany(models.Spot, {
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
       User.hasMany(models.Booking, { foreignKey: "id" });
       User.hasMany(models.Review, { foreignKey: "id" });
     }
