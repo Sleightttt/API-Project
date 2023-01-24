@@ -21,19 +21,19 @@ module.exports = {
       [
         {
           spotId: 1,
-          userId: "testuserid1",
+          userId: 1,
           review: "1",
           stars: 1,
         },
         {
           spotId: 2,
-          userId: "testuserid2",
+          userId: 2,
           review: "2",
           stars: 2,
         },
         {
           spotId: 3,
-          userId: "testuserid3",
+          userId: 3,
           review: "3",
           stars: 3,
         },
