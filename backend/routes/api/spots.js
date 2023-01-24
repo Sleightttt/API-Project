@@ -88,4 +88,28 @@ router.post("/", [requireAuth, restoreUser], async (req, res, next) => {
   return res.json(spotinfo);
 });
 
+//add an image to a spot based on the spots id
+
+router.post(
+  "/:spotId/images",
+  [requireAuth, restoreUser],
+  async (req, res, next) => {
+    let idForSpot = req.params.spotId;
+    const { url, preview } = req.body;
+
+    const newImg = await SpotImage.create({
+      spotId: idForSpot,
+      url,
+      preview,
+    });
+    const info = newImg.toJSON();
+    console.log(info);
+    delete info.createdAt;
+    delete info.updatedAt;
+    delete info.spotId;
+
+    return res.json(info);
+  }
+);
+
 module.exports = router;
