@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Sequelize = require("sequelize");
-const { Spot, SpotImage, Review } = require("../../db/models");
+const { Spot, SpotImage, Review, User } = require("../../db/models");
 const { requireAuth, restoreUser } = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -63,6 +63,27 @@ router.get("/current", [requireAuth, restoreUser], async (req, res) => {
   }
 
   return res.json({ Spots: spotsList });
+});
+
+router.get("/:spotId", async (req, res, next) => {
+  const spotToGet = await Spot.findOne({
+    where: {
+      id: req.params.spotId,
+    },
+    include: [{ model: SpotImage, attributes: ["id", "url", "preview"] }],
+  });
+
+  let resObj = spotToGet.toJSON();
+
+  const ownerInfo = await User.findOne({
+    where: {
+      id: resObj.ownerId,
+    },
+    attributes: ["id", "firstName", "lastName"],
+  });
+  resObj.Owner = ownerInfo.dataValues;
+
+  return res.json(resObj);
 });
 
 //create a spot
