@@ -15,6 +15,8 @@ router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
 
+router.use("/reviews", reviewsRouter);
+
 router.use("/spots", spotsRouter);
 
 router.post("/test", (req, res) => {

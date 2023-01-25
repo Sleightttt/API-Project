@@ -133,6 +133,18 @@ router.post(
   }
 );
 
+router.post("/:spotId/reviews", requireAuth, async (req, res, next) => {
+  const { review, stars } = req.body;
+
+  const newReview = await Review.create({
+    userId: req.user.dataValues.id,
+    spotId: req.params.spotId,
+    review: review,
+    stars: stars,
+  });
+  return res.json(newReview);
+});
+
 router.put("/:spotId", [requireAuth, restoreUser], async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   const { address, city, state, country, lat, lng, name, description, price } =
