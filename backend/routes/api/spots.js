@@ -7,6 +7,7 @@ const {
   Review,
   User,
   ReviewImage,
+  Booking,
 } = require("../../db/models");
 const { requireAuth, restoreUser } = require("../../utils/auth");
 
@@ -105,6 +106,41 @@ router.get("/:spotId/reviews", async (req, res, next) => {
   return res.json({ Reviews });
 });
 
+router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
+  let Bookings = await Booking.findAll({
+    where: {
+      spotId: req.params.spotId,
+    },
+    attributes: ["spotId", "startDate", "endDate"],
+  });
+  const spotLookup = await Spot.findOne({
+    where: {
+      Id: req.params.spotId,
+    },
+  });
+  let checker = spotLookup.toJSON();
+
+  if (req.user.dataValues.id === checker.ownerId) {
+    const Bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId,
+      },
+      include: { model: User },
+      attributes: [
+        "id",
+        "spotId",
+        "userId",
+        "startDate",
+        "endDate",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
+    return res.json({ Bookings });
+  }
+
+  return res.json({ Bookings });
+});
 //create a spot
 
 router.post("/", [requireAuth, restoreUser], async (req, res, next) => {
@@ -162,6 +198,18 @@ router.post("/:spotId/reviews", requireAuth, async (req, res, next) => {
     stars: stars,
   });
   return res.json(newReview);
+});
+
+router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
+  const { startDate, endDate } = req.body;
+
+  let newBooking = await Booking.create({
+    spotId: req.params.spotId,
+    userId: req.user.dataValues.id,
+    startDate,
+    endDate,
+  });
+  return res.json(newBooking);
 });
 
 router.put("/:spotId", [requireAuth, restoreUser], async (req, res, next) => {
