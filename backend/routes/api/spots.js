@@ -112,4 +112,36 @@ router.post(
   }
 );
 
+router.put("/:spotId", [requireAuth, restoreUser], async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+
+  spot.update({
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+  return res.json(spot);
+});
+
+router.delete(
+  "/:spotId",
+  [requireAuth, restoreUser],
+  async (req, res, next) => {
+    const spotToDelete = await Spot.findOne({
+      where: { id: req.params.spotId },
+    });
+
+    await spotToDelete.destroy();
+    return res.json({ message: "Successfully deleted", statusCode: 200 });
+  }
+);
+
 module.exports = router;
