@@ -9,6 +9,8 @@ const {
   User,
 } = require("../../db/models");
 const { requireAuth, restoreUser } = require("../../utils/auth");
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
 router.get("/current", requireAuth, async (req, res, next) => {
   const Reviews = await Review.findAll({
@@ -80,19 +82,53 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   return res.json(resInfo);
 });
 
-router.put("/:reviewId", requireAuth, async (req, res, next) => {
-  const findReview = await Review.findOne({
-    where: {
-      id: req.params.reviewId,
-    },
-  });
-  const { review, stars } = req.body;
-  const updateTime = new Date();
+const validateReviewParams = [
+  check("review")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 3 })
+    .withMessage("Please provide a review"),
+  check("stars")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a star rating"),
+  handleValidationErrors,
+];
 
-  findReview.update({ review: review, stars: stars, updatedAt: updateTime });
+router.put(
+  "/:reviewId",
+  [requireAuth, validateReviewParams],
+  async (req, res, next) => {
+    const findReview = await Review.findOne({
+      where: {
+        id: req.params.reviewId,
+      },
+    });
 
-  return res.json(findReview);
-});
+    if (!findReview) {
+      res.statusCode = 404;
+      return res.json({
+        message: "Review couldn't be found",
+        statusCode: 404,
+      });
+    }
+
+    let checker = findReview.toJSON();
+    //check if review belongs to current user
+    if (checker.userId !== +req.user.dataValues.id) {
+      res.statusCode = 403;
+      return res.json({
+        message: "Review Must belong to user",
+        statusCode: 404,
+      });
+    }
+
+    const { review, stars } = req.body;
+    const updateTime = new Date();
+
+    findReview.update({ review: review, stars: stars, updatedAt: updateTime });
+
+    return res.json(findReview);
+  }
+);
 
 router.delete("/:reviewId", requireAuth, async (req, res, next) => {
   const reviewToDelete = await Review.findOne({
@@ -100,6 +136,24 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
       id: req.params.reviewId,
     },
   });
+
+  if (!reviewToDelete) {
+    res.statusCode = 404;
+    return res.json({
+      message: "Review couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  let checker = reviewToDelete.toJSON();
+  //check if review belongs to current user
+  if (checker.userId !== +req.user.dataValues.id) {
+    res.statusCode = 403;
+    return res.json({
+      message: "Review Must belong to user",
+      statusCode: 404,
+    });
+  }
 
   await reviewToDelete.destroy();
 

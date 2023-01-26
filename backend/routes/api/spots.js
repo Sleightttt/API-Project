@@ -242,6 +242,15 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
       Id: req.params.spotId,
     },
   });
+
+  if (!spotLookup) {
+    res.statusCode = 404;
+    return res.json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+
   let checker = spotLookup.toJSON();
 
   if (req.user.dataValues.id === checker.ownerId) {
@@ -390,17 +399,55 @@ router.post(
   }
 );
 
-router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
-  const { startDate, endDate } = req.body;
+const validateBooking = [
+  check("startDate")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a start date"),
+  check("endDate")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide an end date"),
+  handleValidationErrors,
+];
 
-  let newBooking = await Booking.create({
-    spotId: req.params.spotId,
-    userId: req.user.dataValues.id,
-    startDate,
-    endDate,
-  });
-  return res.json(newBooking);
-});
+router.post(
+  "/:spotId/bookings",
+  [requireAuth, validateBooking],
+  async (req, res, next) => {
+    const { startDate, endDate } = req.body;
+
+    const spotLookup = await Spot.findOne({
+      where: {
+        id: req.params.spotId,
+      },
+    });
+
+    if (!spotLookup) {
+      res.statusCode = 404;
+      return res.json({
+        message: "Spot couldn't be found",
+        statusCode: 404,
+      });
+    }
+
+    let checker = spotLookup.toJSON();
+
+    if (checker.ownerId === req.user.dataValues.id) {
+      res.statusCode = 400;
+      return res.json({
+        message: "You must not own this spot to book it",
+        statusCode: 400,
+      });
+    }
+
+    let newBooking = await Booking.create({
+      spotId: req.params.spotId,
+      userId: req.user.dataValues.id,
+      startDate,
+      endDate,
+    });
+    return res.json(newBooking);
+  }
+);
 
 router.put(
   "/:spotId",
