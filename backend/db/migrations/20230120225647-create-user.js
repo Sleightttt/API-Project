@@ -18,6 +18,9 @@ module.exports = {
         },
         username: {
           type: Sequelize.STRING(30),
+          validator: {
+            len: [1, 30],
+          },
           allowNull: false,
           unique: true,
         },
@@ -25,6 +28,9 @@ module.exports = {
           type: Sequelize.STRING(256),
           allowNull: false,
           unique: true,
+          validator: {
+            len: [1, 30],
+          },
         },
         hashedPassword: {
           type: Sequelize.STRING.BINARY,

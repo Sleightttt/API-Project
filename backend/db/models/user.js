@@ -45,8 +45,16 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         hooks: true,
       });
-      User.hasMany(models.Booking, { foreignKey: "id" });
-      User.hasMany(models.Review, { foreignKey: "id" });
+      User.hasMany(models.Booking, {
+        foreignKey: "id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
+      User.hasMany(models.Review, {
+        foreignKey: "id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
 
