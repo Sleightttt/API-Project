@@ -10,9 +10,54 @@ const {
   Booking,
 } = require("../../db/models");
 const { requireAuth, restoreUser } = require("../../utils/auth");
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
-  const spotts = await Spot.findAll({});
+  let query = {
+    where: {},
+  };
+
+  const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+  const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+
+  if (page > 10) throw new Error("page must be between 1 and 10");
+  if (size > 20) throw new Error("size must be between 1 and 20");
+
+  if (page >= 1 && size >= 1) {
+    query.limit = size;
+    query.offset = size * (page - 1);
+  }
+  //if only min lat
+  if (req.query.minLat && !req.query.maxLat) {
+    query.where.lat = { [Op.gte]: req.query.minLat };
+  }
+  //if only max lat
+  if (req.query.maxLat && !req.query.minLat) {
+    query.where.lat = { [Op.lte]: req.query.maxLat };
+  }
+  //if both min and max lat
+  if (req.query.maxLat && req.query.minLat) {
+    query.where.lat = { [Op.between]: [req.query.minLat, req.query.maxLat] };
+  }
+  //if only min lng
+  if (req.query.minLng && !req.query.maxLng) {
+    query.where.lng = { [Op.gte]: +req.query.minLng };
+  }
+
+  //only max lng
+  if (req.query.maxLng && !req.query.minLng) {
+    query.where.lng = { [Op.lte]: req.query.maxLng };
+  }
+  //both min and max lng
+  if (req.query.maxLng && req.query.minLng) {
+    query.where.lng = { [Op.between]: [req.query.minLng, req.query.maxLng] };
+  }
+
+  if (req.query.maxPrice) {
+    query.where.price = { [Op.lte]: req.query.maxLng };
+  }
+
+  const spotts = await Spot.findAll(query);
 
   let spotsList = [];
   for (let spot of spotts) {
@@ -24,7 +69,10 @@ router.get("/", async (req, res) => {
         preview: true,
       },
     });
-    newSpot.previewImage = previewImg.url;
+
+    if (previewImg) {
+      newSpot.previewImage = previewImg.url;
+    }
 
     let avgRate = await Review.findAll({
       where: {
