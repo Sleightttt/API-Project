@@ -34,6 +34,36 @@ module.exports = {
           url: "testurl3",
           preview: true,
         },
+        {
+          spotId: 1,
+          url: "testurl4",
+          preview: false,
+        },
+        {
+          spotId: 1,
+          url: "testurl5",
+          preview: false,
+        },
+        {
+          spotId: 4,
+          url: "testurl6",
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: "testurl7",
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: "testurl8",
+          preview: true,
+        },
+        {
+          spotId: 2,
+          url: "testurl9",
+          preview: false,
+        },
       ],
       {}
     );
