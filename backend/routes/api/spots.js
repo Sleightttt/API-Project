@@ -257,7 +257,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
   });
   const spotLookup = await Spot.findOne({
     where: {
-      Id: req.params.spotId,
+      id: req.params.spotId,
     },
   });
 
