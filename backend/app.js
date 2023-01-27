@@ -63,127 +63,127 @@ app.use((err, _req, _res, next) => {
 
 app.use((err, _req, res, _next) => {
   // sign in errors;
-  if (
-    err.errors.includes("Please provide a valid email or username.") ||
-    err.errors.includes("Please provide a password.")
-  ) {
-    let error = {};
-    if (err.errors.includes("Please provide a valid email or username.")) {
-      error.credential = "Email or username is required";
-    }
-    if (err.errors.includes("Please provide a password.")) {
-      error.password = "Password is required";
-    }
+  // if (
+  //   err.errors.includes("Please provide a valid email or username.") ||
+  //   err.errors.includes("Please provide a password.")
+  // ) {
+  //   let error = {};
+  //   if (err.errors.includes("Please provide a valid email or username.")) {
+  //     error.credential = "Email or username is required";
+  //   }
+  //   if (err.errors.includes("Please provide a password.")) {
+  //     error.password = "Password is required";
+  //   }
 
-    res.status = 400;
-    return res.json({
-      message: "Validation error",
-      statusCode: 400,
-      error,
-    });
-  }
-  //sign up errors
-  if (err.errors.includes("email must be unique")) {
-    res.status = 403;
-    return res.json({
-      message: "User already exists",
-      statusCode: 403,
-      errors: {
-        email: "User with that email already exists",
-      },
-    });
-  }
+  //   res.status = 400;
+  //   return res.json({
+  //     message: "Validation error",
+  //     statusCode: 400,
+  //     error,
+  //   });
+  // }
+  // //sign up errors
+  // if (err.errors.includes("email must be unique")) {
+  //   res.status = 403;
+  //   return res.json({
+  //     message: "User already exists",
+  //     statusCode: 403,
+  //     errors: {
+  //       email: "User with that email already exists",
+  //     },
+  //   });
+  // }
 
-  if (err.errors.includes("username must be unique")) {
-    res.status = 403;
-    return res.json({
-      message: "User already exists",
-      statusCode: 403,
-      errors: {
-        username: "User with that username already exists",
-      },
-    });
-  }
+  // if (err.errors.includes("username must be unique")) {
+  //   res.status = 403;
+  //   return res.json({
+  //     message: "User already exists",
+  //     statusCode: 403,
+  //     errors: {
+  //       username: "User with that username already exists",
+  //     },
+  //   });
+  // }
 
-  if (err.message === "Bad request.") {
-    res.status = 400;
-    let error = {};
-    error.message = "Validation error";
-    error.statusCode = 400;
-    console.log(err.errors);
-    if (
-      err.errors.includes(
-        "Please provide a firstName with at least 1 characters."
-      )
-    ) {
-      error.firstName = "First name is required";
-    }
+  // if (err.message === "Bad request.") {
+  //   res.status = 400;
+  //   let error = {};
+  //   error.message = "Validation error";
+  //   error.statusCode = 400;
+  //   console.log(err.errors);
+  //   if (
+  //     err.errors.includes(
+  //       "Please provide a firstName with at least 1 characters."
+  //     )
+  //   ) {
+  //     error.firstName = "First name is required";
+  //   }
 
-    if (
-      err.errors.includes(
-        "Please provide a lastName with at least 1 characters."
-      )
-    ) {
-      error.lastName = "Last name is required";
-    }
-    if (
-      err.errors.includes(
-        "Please provide a username with at least 4 characters."
-      )
-    ) {
-      error.username = "username name is required";
-    }
+  //   if (
+  //     err.errors.includes(
+  //       "Please provide a lastName with at least 1 characters."
+  //     )
+  //   ) {
+  //     error.lastName = "Last name is required";
+  //   }
+  //   if (
+  //     err.errors.includes(
+  //       "Please provide a username with at least 4 characters."
+  //     )
+  //   ) {
+  //     error.username = "username name is required";
+  //   }
 
-    if (err.errors.includes("Please provide a valid email.")) {
-      error.email = "Invalid email";
-    }
+  //   if (err.errors.includes("Please provide a valid email.")) {
+  //     error.email = "Invalid email";
+  //   }
 
-    if (err.errors.includes("Please provide an address.")) {
-      error.address = "Street address is required";
-    }
-    if (err.errors.includes("Please provide a city")) {
-      error.city = "City is required";
-    }
-    if (err.errors.includes("Please provide a state.")) {
-      error.state = "State is required";
-    }
-    if (err.errors.includes("Please provide a country.")) {
-      error.country = "Country is required";
-    }
-    if (err.errors.includes("Please provide latitude.")) {
-      error.lat = "Latitude is not valid";
-    }
-    if (err.errors.includes("Please provide longitude.")) {
-      error.lng = "Longitude is not valid";
-    }
-    if (err.errors.includes("Please provide a name.")) {
-      error.name = "Name is required and must be less than 50 characters";
-    }
-    if (err.errors.includes("Please provide a description.")) {
-      error.description = "Description is required";
-    }
-    if (err.errors.includes("Please provide a price.")) {
-      error.price = "Price per day is required";
-    }
+  //   if (err.errors.includes("Please provide an address.")) {
+  //     error.address = "Street address is required";
+  //   }
+  //   if (err.errors.includes("Please provide a city")) {
+  //     error.city = "City is required";
+  //   }
+  //   if (err.errors.includes("Please provide a state.")) {
+  //     error.state = "State is required";
+  //   }
+  //   if (err.errors.includes("Please provide a country.")) {
+  //     error.country = "Country is required";
+  //   }
+  //   if (err.errors.includes("Please provide latitude.")) {
+  //     error.lat = "Latitude is not valid";
+  //   }
+  //   if (err.errors.includes("Please provide longitude.")) {
+  //     error.lng = "Longitude is not valid";
+  //   }
+  //   if (err.errors.includes("Please provide a name.")) {
+  //     error.name = "Name is required and must be less than 50 characters";
+  //   }
+  //   if (err.errors.includes("Please provide a description.")) {
+  //     error.description = "Description is required";
+  //   }
+  //   if (err.errors.includes("Please provide a price.")) {
+  //     error.price = "Price per day is required";
+  //   }
 
-    if (err.errors.includes("Please provide a review")) {
-      error.review = "review text is required";
-    }
+  //   if (err.errors.includes("Please provide a review")) {
+  //     error.review = "review text is required";
+  //   }
 
-    if (err.errors.includes("Please provide a star rating")) {
-      error.stars = "Stars must be an integer from 1-5";
-    }
+  //   if (err.errors.includes("Please provide a star rating")) {
+  //     error.stars = "Stars must be an integer from 1-5";
+  //   }
 
-    if (err.errors.includes("Please provide a start date")) {
-      error.startDate = "Please provide a start date";
-    }
+  //   if (err.errors.includes("Please provide a start date")) {
+  //     error.startDate = "Please provide a start date";
+  //   }
 
-    if (err.errors.includes("Please provide an end date")) {
-      error.endDate = "Please provide an end date";
-    }
-    if (err.errors.includes("max price must be above 0")) {
-      error.endDate = "Max price must be above 0";
-    }
+  //   if (err.errors.includes("Please provide an end date")) {
+  //     error.endDate = "Please provide an end date";
+  //   }
+  //   if (err.errors.includes("max price must be above 0")) {
+  //     error.endDate = "Max price must be above 0";
+  //   }
 
     return res.json(error);
   }
