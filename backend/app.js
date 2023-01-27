@@ -185,8 +185,8 @@ app.use((err, _req, res, _next) => {
   //     error.endDate = "Max price must be above 0";
   //   }
 
-    return res.json(error);
-  }
+  //   return res.json(error);
+  // }
 
   res.status(err.status || 500);
   console.error(err);
