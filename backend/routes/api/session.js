@@ -34,7 +34,6 @@ router.post("/", validateLogin, async (req, res, next) => {
   await setTokenCookie(res, user);
 
   let info = user.toJSON();
-  console.log(info);
   delete info.createdAt;
   delete info.updatedAt;
 

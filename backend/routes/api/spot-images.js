@@ -17,7 +17,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
       id: req.params.imageId,
     },
   });
-
+  //if image doesnt exist
   if (!imageToDelete) {
     res.statusCode = 404;
     return res.json({
@@ -35,7 +35,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
   });
 
   let spotCheck = spot.toJSON();
-
+  //must be owner of spot
   if (spotCheck.ownerId !== req.user.dataValues.id) {
     res.statusCode = 403;
     return res.json({

@@ -42,7 +42,7 @@ router.post("/", validateSignup, async (req, res) => {
     lastName,
   });
   let info = user.toJSON();
-  console.log(info);
+
   delete info.createdAt;
   delete info.updatedAt;
 

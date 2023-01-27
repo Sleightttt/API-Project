@@ -17,14 +17,81 @@ router.get("/current", requireAuth, async (req, res, next) => {
     where: {
       userId: req.user.dataValues.id,
     },
-    include: [
-      { model: User, attributes: ["id", "firstName", "lastName"] },
-      { model: Spot },
-      { model: ReviewImage, attributes: ["id", "url"] },
-    ],
   });
 
-  return res.json({ Reviews });
+  if (!Reviews) {
+    return res.json("no reviews yet");
+  }
+  let reviewList = [];
+  for (let review of Reviews) {
+    let newReview = review.toJSON();
+
+    let reviewSpot = await Spot.findOne({
+      where: {
+        id: newReview.spotId,
+      },
+      attributes: [
+        "id",
+        "ownerId",
+        "address",
+        "city",
+        "state",
+        "country",
+        "lat",
+        "lng",
+        "name",
+        "price",
+      ],
+    });
+
+    if (reviewSpot) {
+      let spotJSON = reviewSpot.toJSON();
+
+      let previewImg = await SpotImage.findOne({
+        where: {
+          spotId: spotJSON.id,
+          preview: true,
+        },
+      });
+      if (previewImg) {
+        spotJSON.previewImage = previewImg.url;
+      }
+
+      newReview.Spot = spotJSON;
+    }
+    //find user and add to review
+    let reviewUser = await User.findOne({
+      where: {
+        id: newReview.userId,
+      },
+    });
+    //if user add to review
+    if (reviewUser) {
+      let userJSON = reviewUser.toJSON();
+      newReview.User = userJSON;
+    }
+    //find reviewimages and add to review
+    let reviewImages = await ReviewImage.findAll({
+      where: {
+        reviewId: newReview.id,
+      },
+    });
+
+    let reviewImageArr = [];
+    for (let revImg of reviewImages) {
+      let revImgJSON = revImg.toJSON();
+      delete revImgJSON.createdAt;
+      delete revImgJSON.updatedAt;
+      delete revImgJSON.reviewId;
+      reviewImageArr.push(revImgJSON);
+    }
+    newReview.ReviewImages = reviewImageArr;
+
+    reviewList.push(newReview);
+  }
+  console.log(reviewList);
+
+  return res.json({ Reviews: reviewList });
 });
 
 router.post("/:reviewId/images", requireAuth, async (req, res, next) => {

@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Spots",
         },
+
         onDelete: "CASCADE",
       },
       userId: {
@@ -32,8 +33,14 @@ module.exports = (sequelize, DataTypes) => {
         references: { model: "Users" },
         onDelete: "CASCADE",
       },
-      startDate: { type: DataTypes.STRING, allowNull: false },
-      endDate: { type: DataTypes.STRING, allowNull: false },
+      startDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

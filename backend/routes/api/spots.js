@@ -87,8 +87,24 @@ router.get("/", async (req, res) => {
     query.where.lng = { [Op.between]: [req.query.minLng, req.query.maxLng] };
   }
 
-  if (req.query.maxPrice) {
-    query.where.price = { [Op.lte]: req.query.maxLng };
+  if (req.query.maxPrice && !req.query.minPrice) {
+    if (req.query.maxPrice < 0) {
+      return res.json({ Error: "max price must be above 0" });
+    }
+    query.where.price = { [Op.lte]: req.query.maxPrice };
+  }
+
+  if (req.query.minPrice && !req.query.maxPrice) {
+    if (req.query.minPrice < 0) {
+      return res.json({ Error: "min price must be above 0" });
+    }
+    query.where.price = { [Op.gte]: req.query.minPrice };
+  }
+
+  if (req.query.maxPrice && req.query.minPrice) {
+    query.where.price = {
+      [Op.between]: [req.query.minPrice, req.query.maxPrice],
+    };
   }
 
   const spotts = await Spot.findAll(query);
@@ -115,10 +131,12 @@ router.get("/", async (req, res) => {
       attributes: [[Sequelize.fn("AVG", Sequelize.col("stars")), "stars"]],
     });
     newSpot.avgRating = avgRate[0].dataValues.stars;
+    newSpot.page = page;
+    newSpot.size = size;
     spotsList.push(newSpot);
   }
 
-  return res.json({ spots: spotsList });
+  return res.json({ Spots: spotsList });
 });
 
 router.get("/current", requireAuth, async (req, res) => {
@@ -189,7 +207,7 @@ router.get("/:spotId", async (req, res, next) => {
     attributes: [[Sequelize.fn("AVG", Sequelize.col("stars")), "stars"]],
   });
 
-  resObj.avgRating = avgRate[0].dataValues.stars;
+  resObj.avgStarRating = avgRate[0].dataValues.stars;
 
   const ownerInfo = await User.findOne({
     where: {
@@ -310,6 +328,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
     },
   });
 
+  //if no spot is found
   if (!findSpot) {
     res.statusCode = 404;
     return res.json({
@@ -327,8 +346,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
       statusCode: 400,
     });
   }
-  //if no spot is found
-
+  //create new spot image
   const newImg = await SpotImage.create({
     spotId: idForSpot,
     url,
@@ -395,6 +413,7 @@ router.post(
       review: review,
       stars: stars,
     });
+    res.statusCode = 201;
     return res.json(newReview);
   }
 );
@@ -430,7 +449,7 @@ router.post(
     }
 
     let checker = spotLookup.toJSON();
-
+    //spot must not belong to the current user
     if (checker.ownerId === req.user.dataValues.id) {
       res.statusCode = 400;
       return res.json({
@@ -439,11 +458,64 @@ router.post(
       });
     }
 
+    const allBookingsForSpot = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId,
+      },
+    });
+
+    if (allBookingsForSpot) {
+      for (let book of allBookingsForSpot) {
+        let booksToJSON = book.toJSON();
+        console.log(booksToJSON.startDate.split(" ")[0]);
+        let startDateOfExistingBooking = new Date(
+          booksToJSON.startDate.split(" ")[0]
+        );
+
+        let endDateDateOfExistingBooking = new Date(
+          booksToJSON.endDate.split(" ")[0]
+        );
+
+        let startDateNew = new Date(startDate).getTime();
+        let endDateNew = new Date(endDate).getTime();
+
+        if (
+          startDateNew <= endDateDateOfExistingBooking &&
+          startDateNew >= startDateOfExistingBooking
+        ) {
+          return res.json({
+            message:
+              "Sorry, this spot is already booked for the specified dates",
+            statusCode: 403,
+            errors: {
+              startDate: "Start date conflicts with an existing booking",
+              endDate: "End date conflicts with an existing booking",
+            },
+          });
+        }
+
+        if (
+          endDateNew <= endDateDateOfExistingBooking &&
+          endDateNew >= startDateOfExistingBooking
+        ) {
+          return res.json({
+            message:
+              "Sorry, this spot is already booked for the specified dates",
+            statusCode: 403,
+            errors: {
+              startDate: "Start date conflicts with an existing booking",
+              endDate: "End date conflicts with an existing booking",
+            },
+          });
+        }
+      }
+    }
+
     let newBooking = await Booking.create({
       spotId: req.params.spotId,
       userId: req.user.dataValues.id,
-      startDate,
-      endDate,
+      startDate: startDate,
+      endDate: endDate,
     });
     return res.json(newBooking);
   }
