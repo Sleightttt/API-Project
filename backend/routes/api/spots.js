@@ -13,6 +13,7 @@ const { requireAuth, restoreUser } = require("../../utils/auth");
 const { Op } = require("sequelize");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const e = require("express");
 
 const validateNewSpot = [
   check("address")
@@ -54,8 +55,16 @@ router.get("/", async (req, res) => {
   const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
   const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
 
-  if (page > 10) throw new Error("page must be between 1 and 10");
-  if (size > 20) throw new Error("size must be between 1 and 20");
+  let errorbuilder = {
+    message: "Validation Error",
+    statusCode: 400,
+    errors: {},
+  };
+
+  if (page > 10 || page < 1)
+    errorbuilder.errors.page = "Page must be greater than or equal to 1";
+  if (size > 20 || size < 1)
+    errorbuilder.errors.size = "Size must be between 1 and 20";
 
   if (page >= 1 && size >= 1) {
     query.limit = size;
@@ -63,48 +72,91 @@ router.get("/", async (req, res) => {
   }
   //if only min lat
   if (req.query.minLat && !req.query.maxLat) {
-    query.where.lat = { [Op.gte]: req.query.minLat };
+    if (!isNaN(req.query.minLat)) {
+      query.where.lat = { [Op.gte]: req.query.minLat };
+    } else {
+      errorbuilder.errors.minLat = "Minumum latitude is invalid";
+    }
   }
   //if only max lat
   if (req.query.maxLat && !req.query.minLat) {
-    query.where.lat = { [Op.lte]: req.query.maxLat };
+    if (!isNaN(req.query.maxLat)) {
+      query.where.lat = { [Op.lte]: req.query.maxLat };
+    } else {
+      errorbuilder.errors.maxLat = "Maximum latitude is invalid";
+    }
   }
   //if both min and max lat
   if (req.query.maxLat && req.query.minLat) {
-    query.where.lat = { [Op.between]: [req.query.minLat, req.query.maxLat] };
+    if (!isNaN(req.query.maxLat) && !isNaN(req.query.minLat)) {
+      query.where.lat = { [Op.between]: [req.query.minLat, req.query.maxLat] };
+    } else {
+      errorbuilder.errors.minLat = "Minimum latitude is invalid";
+      errorbuilder.errors.minLat = "Maximum latitude is invalid";
+    }
   }
   //if only min lng
   if (req.query.minLng && !req.query.maxLng) {
-    query.where.lng = { [Op.gte]: +req.query.minLng };
+    if (!isNaN(req.query.minLng)) {
+      query.where.lng = { [Op.gte]: +req.query.minLng };
+    } else {
+      errorbuilder.errors.minLng = "Minumum longitude is invalid";
+    }
   }
 
   //only max lng
   if (req.query.maxLng && !req.query.minLng) {
-    query.where.lng = { [Op.lte]: req.query.maxLng };
+    if (!isNaN(req.query.maxLng)) {
+      query.where.lng = { [Op.lte]: req.query.maxLng };
+    } else {
+      errorbuilder.errors.maxLng = "Maxumum longitude is invalid";
+    }
   }
   //both min and max lng
   if (req.query.maxLng && req.query.minLng) {
-    query.where.lng = { [Op.between]: [req.query.minLng, req.query.maxLng] };
+    if (!isNaN(req.query.maxLng) && !isNaN(req.query.minLng)) {
+      query.where.lng = { [Op.between]: [req.query.minLng, req.query.maxLng] };
+    } else {
+      errorbuilder.errors.minLng = "Minimum latitude is invalid";
+      errorbuilder.errors.maxLng = "Maximum latitude is invalid";
+    }
   }
 
   if (req.query.maxPrice && !req.query.minPrice) {
-    if (req.query.maxPrice < 0) {
-      return res.json({ Error: "max price must be above 0" });
+    if (req.query.maxPrice >= 0) {
+      query.where.price = { [Op.lte]: req.query.maxPrice };
+    } else {
+      errorbuilder.errors.maxPrice =
+        "Maximum price must be greater than or equal to 0";
     }
-    query.where.price = { [Op.lte]: req.query.maxPrice };
   }
 
   if (req.query.minPrice && !req.query.maxPrice) {
-    if (req.query.minPrice < 0) {
-      return res.json({ Error: "min price must be above 0" });
+    if (req.query.minPrice >= 0) {
+      query.where.price = { [Op.gte]: req.query.minPrice };
+    } else {
+      errorbuilder.errors.minPrice =
+        "Minimum price must be greater than or equal to 0";
     }
-    query.where.price = { [Op.gte]: req.query.minPrice };
   }
 
   if (req.query.maxPrice && req.query.minPrice) {
-    query.where.price = {
-      [Op.between]: [req.query.minPrice, req.query.maxPrice],
-    };
+    if (req.query.maxPrice >= 0 && req.query.minPrice >= 0) {
+      query.where.price = {
+        [Op.between]: [req.query.minPrice, req.query.maxPrice],
+      };
+    } else {
+      errorbuilder.errors.minPrice =
+        "Minimum price must be greater than or equal to 0";
+      errorbuilder.errors.maxPrice =
+        "Maximum price must be greater than or equal to 0";
+    }
+  }
+  let errKeyCheck = errorbuilder.errors;
+
+  if (Object.keys(errKeyCheck).length) {
+    res.statusCode = 400;
+    return res.json(errorbuilder);
   }
 
   const spotts = await Spot.findAll(query);
@@ -131,12 +183,15 @@ router.get("/", async (req, res) => {
       attributes: [[Sequelize.fn("AVG", Sequelize.col("stars")), "stars"]],
     });
     newSpot.avgRating = avgRate[0].dataValues.stars;
-    newSpot.page = page;
-    newSpot.size = size;
+
     spotsList.push(newSpot);
   }
 
-  return res.json({ Spots: spotsList });
+  let Spots = { Spots: spotsList };
+  Spots.page = page;
+  Spots.size = size;
+
+  return res.json(Spots);
 });
 
 router.get("/current", requireAuth, async (req, res) => {
