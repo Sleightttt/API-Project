@@ -152,12 +152,12 @@ router.get("/", async (req, res) => {
         "Maximum price must be greater than or equal to 0";
     }
   }
-  // let errKeyCheck = errorbuilder.errors;
+  let errKeyCheck = errorbuilder.errors;
 
-  // if (Object.keys(errKeyCheck).length) {
-  //   res.statusCode = 400;
-  //   return res.json(errorbuilder);
-  // }
+  if (Object.keys(errKeyCheck).length) {
+    res.statusCode = 400;
+    return res.json(errorbuilder);
+  }
 
   const spotts = await Spot.findAll(query);
 
