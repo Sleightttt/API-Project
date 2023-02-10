@@ -106,7 +106,7 @@ app.use((err, _req, res, _next) => {
   }
 
   if (err.message === "Bad request.") {
-    res.status = 400;
+    res.statusCode = 400;
     let error = {};
     error.message = "Validation error";
     error.statusCode = 400;
