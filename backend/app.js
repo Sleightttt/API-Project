@@ -109,6 +109,7 @@ app.use((err, _req, res, _next) => {
     res.statusCode = 400;
     let error = {};
     error.message = "Validation error";
+    // error.errors = [...err.errors];
     error.statusCode = 400;
     console.log(err.errors);
     if (

@@ -1,0 +1,34 @@
+.modalTest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+  width: 500px;
+  border-radius: 20px;
+  /* background-color: aqua; */
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.signup-form > input {
+  width: 80%;
+  border-radius: 5px;
+  background-color: rgb(240, 240, 240);
+}
+
+.signup-form > label {
+  position: relative;
+}
+
+.signup-button {
+  margin-top: 10px;
+  width: 82%;
+  height: 30px;
+  background-color: rgb(245, 79, 79);
+  color: white;
+}
