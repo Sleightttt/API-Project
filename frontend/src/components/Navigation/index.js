@@ -8,18 +8,25 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </li>
-      {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
-    </ul>
+    <div className="navbar">
+      <div className="nav-container">
+        <ul className="navItems">
+          <li className="leftNav">
+            <NavLink exact to="/">
+              <img
+                className="leftNav"
+                src="https://static.dezeen.com/uploads/2014/07/Airbnb-rebrand-by-DesignStudio_dezeen_468_8.jpg"
+              />
+            </NavLink>
+          </li>
+          {isLoaded && (
+            <li className="rightNav">
+              <ProfileButton user={sessionUser} />
+            </li>
+          )}
+        </ul>
+      </div>
+    </div>
   );
 }
 
