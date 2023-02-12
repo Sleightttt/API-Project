@@ -27,7 +27,7 @@ function Spots() {
             spts.Spots.map((spot) => {
               return (
                 <div key={spot.id} className="example-spot-card">
-                  <div className="image-placeholder">{spot.previewImage}</div>
+                  <img className="image-placeholder" src={spot.previewImage} />
                   <div className="city-review-box">
                     <div className="city-state">
                       {spot.city}, {spot.state}

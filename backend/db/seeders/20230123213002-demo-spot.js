@@ -21,7 +21,7 @@ module.exports = {
           lng: 1,
           name: "testname",
           description: "testdescription",
-          price: 1,
+          price: 111,
         },
         {
           ownerId: 2,
@@ -33,7 +33,7 @@ module.exports = {
           lng: 2,
           name: "testname2",
           description: "testdescription2",
-          price: 2,
+          price: 222,
         },
         {
           ownerId: 3,
@@ -45,7 +45,7 @@ module.exports = {
           lng: 3,
           name: "testname3",
           description: "testdescriptio3",
-          price: 3,
+          price: 333,
         },
         {
           ownerId: 3,
@@ -57,7 +57,7 @@ module.exports = {
           lng: 4,
           name: "testname4",
           description: "testdescriptio4",
-          price: 4,
+          price: 444,
         },
         {
           ownerId: 3,
@@ -69,7 +69,7 @@ module.exports = {
           lng: 5,
           name: "testname5",
           description: "testdescriptio5",
-          price: 5,
+          price: 555,
         },
         {
           ownerId: 3,
@@ -81,7 +81,7 @@ module.exports = {
           lng: 6,
           name: "testname6",
           description: "testdescriptio6",
-          price: 6,
+          price: 666,
         },
         {
           ownerId: 3,
@@ -93,7 +93,7 @@ module.exports = {
           lng: 7,
           name: "testname7",
           description: "testdescriptio7",
-          price: 7,
+          price: 777,
         },
       ],
       {}
