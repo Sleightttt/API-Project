@@ -1,26 +1,27 @@
 .spots-container {
   display: flex;
   flex-wrap: wrap;
-  border: solid 2px blue;
+  /* border: solid 2px blue; */
   margin-left: 7%;
   margin-right: 7%;
   margin-top: 10px;
 }
 
 .example-spot-card {
-  border: solid 2px red;
+  /* border: solid 2px red; */
   height: 330px;
   width: 270px;
   margin: 10px;
   cursor: pointer;
   border-radius: 10px;
+  background-color: rgba(245, 79, 79, 0.33);
 }
 
 .image-placeholder {
   border-radius: 10px;
   height: 250px;
   width: 270px;
-  border: solid 2px purple;
+  /* border: solid 2px purple; */
 }
 
 .city-review-box {

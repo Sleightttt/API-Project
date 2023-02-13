@@ -45,11 +45,28 @@ function GetOneSpot() {
               <h2>
                 Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
               </h2>
-              <h3>About goes here</h3>
+              <h3>{spot.description}</h3>
             </div>
             <div className="about-box-right">
-              <div className="booking-button-box">Booking button goes here</div>
+              <div className="price-review-container">
+                <div className="box-price">
+                  Price ${spot.price}
+                  <span className="perNight">&nbsp;per night</span>
+                </div>{" "}
+                <div className="box-review">
+                  {" "}
+                  <i className="fas fa-star"></i>
+                  {spot.avgStarRating}&nbsp;&nbsp; {spot.numReviews} reviews
+                </div>
+              </div>
+              <button className="booking-button"> Reserve</button>
             </div>
+          </div>
+          <div className="review-box">
+            <h1>
+              <i className="fas fa-star"></i>
+              {spot.avgStarRating}&nbsp;&nbsp; {spot.numReviews} reviews
+            </h1>
           </div>
         </div>
       )}
