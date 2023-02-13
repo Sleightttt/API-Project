@@ -37,3 +37,7 @@
 .bold {
   font-weight: bold;
 }
+
+.price {
+  padding-left: 3px;
+}

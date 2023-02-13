@@ -39,4 +39,6 @@
 
 .signup-button:disabled {
   background-color: grey;
+  cursor: auto;
+  box-shadow: none;
 }

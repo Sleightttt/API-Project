@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       spotId: { type: DataTypes.INTEGER },
-      url: { type: DataTypes.STRING },
+      url: { type: DataTypes.TEXT },
       preview: { type: DataTypes.BOOLEAN },
     },
     {
