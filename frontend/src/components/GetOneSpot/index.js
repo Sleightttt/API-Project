@@ -3,6 +3,7 @@ import { getOneSpotThunk } from "../../store/spots";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./GetOneSpot.css";
+import { getOneSpotReviewsThunk } from "../../store/reviews";
 
 function GetOneSpot() {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ function GetOneSpot() {
     dispatch(getOneSpotThunk(spotId));
   }, []);
 
+  useEffect(() => {
+    dispatch(getOneSpotReviewsThunk(spotId));
+  }, []);
+
   let spotLoaded = false;
 
   let spot = useSelector((state) => state.spots.oneSpot);
@@ -20,7 +25,9 @@ function GetOneSpot() {
   if (spot) {
     spotLoaded = true;
   }
-  console.log(spot);
+  //   console.log(spot);
+
+  let reviews = useSelector((state) => state.reviews.reviews.Reviews);
 
   return (
     <>
@@ -32,11 +39,20 @@ function GetOneSpot() {
           </h2>
           <div className="one-spot-image-container">
             <div className="left-spot-img">
-              <img className="preview-img" src={spot.SpotImages[0].url}></img>
+              <img
+                className="preview-img"
+                src={spot.SpotImages[0].url}
+                alt="main property"
+              ></img>
             </div>
             <div className="right-spot-img">
               {spot.SpotImages.map((img) => (
-                <img key={img.id} className="right-image" src={img.url} />
+                <img
+                  key={img.id}
+                  className="right-image"
+                  src={img.url}
+                  alt="additional angles of property"
+                />
               ))}
             </div>
           </div>
@@ -55,18 +71,51 @@ function GetOneSpot() {
                 </div>{" "}
                 <div className="box-review">
                   {" "}
-                  <i className="fas fa-star"></i>
-                  {spot.avgStarRating}&nbsp;&nbsp; {spot.numReviews} reviews
+                  <i className="fas fa-star"></i>&nbsp;
+                  {spot.avgStarRating > 0
+                    ? spot.avgStarRating.toFixed(1)
+                    : null}
+                  &nbsp;&nbsp; {spot.numReviews === 0 ? "" : "•"} &nbsp;{" "}
+                  {spot.numReviews > 0 ? spot.numReviews : null}{" "}
+                  {spot.numReviews > 1
+                    ? "Reviews"
+                    : spot.numReviews === 0
+                    ? "New"
+                    : "Review"}
                 </div>
               </div>
-              <button className="booking-button"> Reserve</button>
+              <button
+                className="booking-button"
+                onClick={() => alert("Feature coming soon...")}
+              >
+                {" "}
+                Reserve{" "}
+              </button>
             </div>
           </div>
           <div className="review-box">
             <h1>
-              <i className="fas fa-star"></i>
-              {spot.avgStarRating}&nbsp;&nbsp; {spot.numReviews} reviews
+              <i className="fas fa-star"></i>&nbsp;
+              {spot.avgStarRating > 0 ? spot.avgStarRating.toFixed(1) : null}
+              &nbsp;&nbsp;
+              {spot.numReviews === 0 ? "" : "•"} &nbsp;
+              {spot.numReviews > 0 ? spot.numReviews : null}
+              &nbsp;
+              {spot.numReviews > 1
+                ? "Reviews"
+                : spot.numReviews === 0
+                ? "New"
+                : "Review"}{" "}
             </h1>
+            {reviews.map((review) => {
+              return (
+                <div key={review.id} className="single-review-container">
+                  <div className="review-name">{review.User.firstName}</div>
+                  <div className="review-updatedAt">{review.updatedAt}</div>
+                  <div className="review-body"> {review.review}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

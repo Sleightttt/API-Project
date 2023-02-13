@@ -54,14 +54,16 @@
 
 .login-button:disabled {
   background-color: grey;
+  cursor: auto;
+  box-shadow: none;
 }
 
 .demo-button {
-  margin-top: 5px;
   padding: 0;
   border: none;
   background: none;
   color: rgb(0, 72, 181);
+  padding-bottom: 15px;
 }
 
 .demo-button:hover {

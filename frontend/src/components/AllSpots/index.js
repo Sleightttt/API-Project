@@ -44,7 +44,7 @@ function Spots() {
                       <div className="star">
                         <i className="fas fa-star"></i>:
                       </div>
-                      {spot.avgRating ? spot.avgRating : "New"}
+                      {spot.avgRating ? spot.avgRating.toFixed(1) : "New"}
                     </div>
                   </div>
                   <div className="price">
