@@ -51,6 +51,10 @@
   cursor: pointer;
 }
 
+.login-button:disabled {
+  background-color: grey;
+}
+
 .demo-button {
   margin-top: 5px;
   padding: 0;

@@ -112,6 +112,7 @@ app.use((err, _req, res, _next) => {
     // error.errors = [...err.errors];
     error.statusCode = 400;
     console.log(err.errors);
+    if (err.errors.length) error.errors = [...err.errors];
     if (
       err.errors.includes(
         "Please provide a firstName with at least 1 characters."

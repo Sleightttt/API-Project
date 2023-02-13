@@ -1,4 +1,5 @@
 import React, { useState, getState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpotsThunk } from "../../store/spots";
 import "./AllSpots.css";
@@ -10,31 +11,45 @@ function Spots() {
     dispatch(getAllSpotsThunk());
   }, []);
 
+  const history = useHistory();
+
   let spotsloaded = false;
 
   let spts = useSelector((state) => state.spots.spots);
   if (spts) {
     spotsloaded = true;
-    // console.log(spts.Spots);
+    console.log(spts.Spots);
   }
   //   console.log(spotsloaded);
+
   return (
     <>
       <div className="all-spots">
-        <div> All Spots Go Here</div>
+        <div> </div>
         <div className="spots-container">
           {spotsloaded &&
             spts.Spots.map((spot) => {
               return (
-                <div key={spot.id} className="example-spot-card">
+                <div
+                  key={spot.id}
+                  className="example-spot-card"
+                  onClick={() => history.push(`/spots/${spot.id}`)}
+                >
                   <img className="image-placeholder" src={spot.previewImage} />
                   <div className="city-review-box">
                     <div className="city-state">
                       {spot.city}, {spot.state}
                     </div>
-                    <div className="star-rating">Star: {spot.avgRating}</div>
+                    <div className="star-rating">
+                      <div className="star">
+                        <i className="fas fa-star"></i>:
+                      </div>
+                      {spot.avgRating ? spot.avgRating : "New"}
+                    </div>
                   </div>
-                  <div className="price"> ${spot.price} per night</div>
+                  <div className="price">
+                    <span className="bold">${spot.price}</span> per night
+                  </div>
                 </div>
               );
             })}

@@ -70,6 +70,9 @@ router.get("/", async (req, res) => {
     query.limit = size;
     query.offset = size * (page - 1);
   }
+
+  ///////destructure query params for cleaner code //////
+
   //if only min lat
   if (req.query.minLat && !req.query.maxLat) {
     if (!isNaN(req.query.minLat)) {

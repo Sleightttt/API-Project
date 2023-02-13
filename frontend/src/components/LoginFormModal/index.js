@@ -50,11 +50,15 @@ function LoginFormModal() {
             required
           />
 
-          <button className="login-button" type="submit">
+          <button
+            className="login-button"
+            type="submit"
+            disabled={credential < 4 || password < 6}
+          >
             Log In
           </button>
 
-          <button className="demo-button" type="submite">
+          <button className="demo-button" type="submit">
             Demo User
           </button>
         </form>

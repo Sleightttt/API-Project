@@ -4,6 +4,7 @@
   border: solid 2px blue;
   margin-left: 7%;
   margin-right: 7%;
+  margin-top: 10px;
 }
 
 .example-spot-card {
@@ -12,9 +13,11 @@
   width: 270px;
   margin: 10px;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .image-placeholder {
+  border-radius: 10px;
   height: 250px;
   width: 270px;
   border: solid 2px purple;
@@ -24,4 +27,12 @@
   display: flex;
   margin: 4px;
   justify-content: space-between;
+}
+
+.star-rating {
+  display: flex;
+}
+
+.bold {
+  font-weight: bold;
 }
