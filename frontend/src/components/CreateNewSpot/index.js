@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
 import * as spotsActions from "../../store/spots";
 import "./CreateNewSpot.css";
 import { useHistory } from "react-router-dom";
@@ -24,9 +23,11 @@ function CreateNewSpot() {
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
 
-  const testFunc = () => {};
+  const testFunc = async (resp) => {};
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     return dispatch(
       spotsActions.createSpotThunk({
         country,
@@ -42,7 +43,6 @@ function CreateNewSpot() {
     )
       .then(testFunc)
       .catch(async (res) => {
-        console.log(res);
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
@@ -119,6 +119,7 @@ function CreateNewSpot() {
             fast wifi or parking, and what you love about the neighborhood.
           </div>
           <textarea
+            className="create-spot-textarea"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -159,30 +160,35 @@ function CreateNewSpot() {
             onChange={(e) => setPreviewImg(e.target.value)}
             required
             placeholder="Preview Image URL"
+            className="image-input"
           ></input>
           <input
             type="text"
             value={image1}
             onChange={(e) => setImage1(e.target.value)}
             placeholder="Image URL"
+            className="image-input"
           ></input>
           <input
             type="text"
             value={image2}
             onChange={(e) => setImage2(e.target.value)}
             placeholder="Image URL"
+            className="image-input"
           ></input>
           <input
             type="text"
             value={image3}
             onChange={(e) => setImage3(e.target.value)}
             placeholder="Image URL"
+            className="image-input"
           ></input>
           <input
             type="text"
             value={image4}
             onChange={(e) => setImage4(e.target.value)}
             placeholder="Image URL"
+            className="image-input"
           ></input>
           <button className="create-new-spot-button" type="submit">
             Create This Spot!

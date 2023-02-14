@@ -26,11 +26,15 @@ function GetOneSpot() {
     spotLoaded = true;
   }
   //   console.log(spot);
+  let notLoaded = (
+    <div>Unable to retrieve details, please try again shortly</div>
+  );
 
   let reviews = useSelector((state) => state.reviews.reviews.Reviews);
 
   return (
     <>
+      {!spotLoaded && notLoaded}
       {spotLoaded && (
         <div className="one-spot-container">
           <h1>{spot.name}</h1>

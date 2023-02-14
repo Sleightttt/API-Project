@@ -42,7 +42,7 @@ export const getOneSpotThunk = (spotId) => async (dispatch) => {
 
 export const getAllSpotsThunk = () => async (dispatch) => {
   const response = await fetch("/api/spots");
-  //   console.log(response);
+
   if (response.ok) {
     const allSpotsData = await response.json();
 
@@ -82,7 +82,7 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
 
   if (response.ok) {
     const newSpotData = await response.json();
-    console.log(newSpotData, "newspotdata");
+
     const newSpotId = newSpotData.id;
 
     const imagePost = await csrfFetch(`/api/spots/${newSpotId}/images`, {
@@ -95,6 +95,7 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
 
     dispatch(createSpotAction(newSpotData));
   }
+  return response;
 };
 
 const initialState = { spots: null };

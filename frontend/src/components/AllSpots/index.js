@@ -1,4 +1,4 @@
-import React, { useState, getState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpotsThunk } from "../../store/spots";
@@ -21,9 +21,11 @@ function Spots() {
     console.log(spts.Spots);
   }
   //   console.log(spotsloaded);
+  let notLoaded = <div>Unable to load spots, please try again shortly</div>;
 
   return (
     <>
+      {!spts && notLoaded}
       <div className="all-spots">
         <div> </div>
         <div className="spots-container">
@@ -50,7 +52,7 @@ function Spots() {
                     </div>
                   </div>
                   <div className="price">
-                    <span className="bold">${spot.price}</span> per night
+                    <span className="bold">${spot.price}</span> night
                   </div>
                 </div>
               );
