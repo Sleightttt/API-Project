@@ -74,3 +74,24 @@
 .hidden {
   display: none;
 }
+
+.create-spot-button {
+  position: relative;
+  right: 85px;
+  top: 30px;
+  height: 20px;
+  width: 80px;
+  border: none;
+  background: none;
+  color: rgb(245, 79, 79);
+  margin: 0;
+  padding: 0;
+}
+
+.create-spot-button:hover {
+  cursor: pointer;
+  outline: auto;
+  color: white;
+  background-color: rgb(245, 79, 79);
+  border-radius: 5px;
+}

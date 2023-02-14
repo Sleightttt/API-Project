@@ -1,0 +1,46 @@
+.create-spot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-spot-form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(253, 102, 102, 0.769);
+  border-radius: 12px;
+  color: white;
+  margin: 0px 25%;
+  align-items: center;
+}
+
+.create-spot-form > input,
+textarea {
+  background-color: antiquewhite;
+  width: 80%;
+}
+.create-spot-form > label {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 3px;
+  border-bottom: 2px solid rgba(224, 224, 224, 0.81);
+}
+.create-spot-form > div {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 5px;
+  width: 80%;
+}
+
+.create-new-spot-button {
+  height: 40px;
+  background-color: rgb(253, 102, 102);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.create-new-spot-button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}

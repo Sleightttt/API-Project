@@ -1,6 +1,12 @@
+import { csrfFetch } from "./csrf";
+
 const GET_ALL_SPOTS = "spots/getAllSpots";
 
 const GET_ONE_SPOT = "spots/getOneSpot";
+
+const CREATE_SPOT = "/spots/createSpot";
+
+////////////actions//////////
 
 const getAllSpotsAction = (allSpotsData) => {
   return {
@@ -15,6 +21,15 @@ const getOneSpotAction = (oneSpotData) => {
     oneSpotData,
   };
 };
+
+const createSpotAction = (spotToCreate) => {
+  return {
+    type: CREATE_SPOT,
+    spotToCreate,
+  };
+};
+
+///////////thunks/////////
 
 export const getOneSpotThunk = (spotId) => async (dispatch) => {
   const response = await fetch(`/api/spots/${spotId}`);
@@ -35,6 +50,53 @@ export const getAllSpotsThunk = () => async (dispatch) => {
   }
 };
 
+export const createSpotThunk = (spotToCreate) => async (dispatch) => {
+  const {
+    country,
+    address,
+    city,
+    state,
+    lng,
+    lat,
+    description,
+    name,
+    price,
+    previewImg,
+    image,
+  } = spotToCreate;
+
+  const response = await csrfFetch("/api/spots", {
+    method: "POST",
+    body: JSON.stringify({
+      country,
+      address,
+      city,
+      state,
+      lng,
+      lat,
+      description,
+      name,
+      price,
+    }),
+  });
+
+  if (response.ok) {
+    const newSpotData = await response.json();
+    console.log(newSpotData, "newspotdata");
+    const newSpotId = newSpotData.id;
+
+    const imagePost = await csrfFetch(`/api/spots/${newSpotId}/images`, {
+      method: "POST",
+      body: JSON.stringify({
+        url: previewImg,
+        preview: true,
+      }),
+    });
+
+    dispatch(createSpotAction(newSpotData));
+  }
+};
+
 const initialState = { spots: null };
 
 const spotsReducer = (state = initialState, action) => {
@@ -50,6 +112,14 @@ const spotsReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.oneSpot = action.oneSpotData;
       return newState;
+
+    case CREATE_SPOT:
+      newState = Object.assign({}, state);
+      // console.log(action.spotToCreate);
+      newState.spots.Spots[action.spotToCreate] = action.spotToCreate;
+      // console.log(newState);
+      return newState;
+
     default:
       return state;
   }

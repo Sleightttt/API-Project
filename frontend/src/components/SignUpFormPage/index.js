@@ -103,7 +103,11 @@ function SignUpFormModal() {
           <button
             className="signup-button"
             type="submit"
-            disabled={password.length < 6 || username.length < 4}
+            disabled={
+              password.length < 6 ||
+              username.length < 4 ||
+              password !== confirmPassword
+            }
           >
             Sign Up
           </button>
