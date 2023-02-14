@@ -94,8 +94,9 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
     });
 
     dispatch(createSpotAction(newSpotData));
+
+    return newSpotId;
   }
-  return response;
 };
 
 const initialState = { spots: null };
@@ -106,7 +107,7 @@ const spotsReducer = (state = initialState, action) => {
     case GET_ALL_SPOTS:
       newState = Object.assign({}, state);
       newState.spots = action.allSpotsData;
-      console.log(newState);
+      // console.log(newState);
       return newState;
 
     case GET_ONE_SPOT:

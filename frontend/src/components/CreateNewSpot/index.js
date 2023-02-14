@@ -23,7 +23,13 @@ function CreateNewSpot() {
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
 
-  const testFunc = async (resp) => {};
+  const testFunc = async (resp) => {
+    console.log("this is the resp", resp);
+    // const data = await resp.json();
+
+    history.push(`/spots/${resp}`);
+    ////the result of this is res.json is not a function
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
