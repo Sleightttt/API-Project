@@ -73,7 +73,7 @@ function GetOneSpot() {
                   {" "}
                   <i className="fas fa-star"></i>&nbsp;
                   {spot.avgStarRating > 0
-                    ? spot.avgStarRating.toFixed(1)
+                    ? Number(spot.avgStarRating).toFixed(1)
                     : null}
                   &nbsp;&nbsp; {spot.numReviews === 0 ? "" : "•"} &nbsp;{" "}
                   {spot.numReviews > 0 ? spot.numReviews : null}{" "}
@@ -96,7 +96,9 @@ function GetOneSpot() {
           <div className="review-box">
             <h1>
               <i className="fas fa-star"></i>&nbsp;
-              {spot.avgStarRating > 0 ? spot.avgStarRating.toFixed(1) : null}
+              {spot.avgStarRating > 0
+                ? Number(spot.avgStarRating).toFixed(1)
+                : null}
               &nbsp;&nbsp;
               {spot.numReviews === 0 ? "" : "•"} &nbsp;
               {spot.numReviews > 0 ? spot.numReviews : null}
