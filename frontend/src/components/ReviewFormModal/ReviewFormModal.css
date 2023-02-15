@@ -4,6 +4,12 @@
   align-items: center;
   height: 400px;
   width: 400px;
+  background-color: rgba(253, 102, 102, 0.561);
+  border-radius: 12px;
+  color: white;
+}
+.reviewModal > h1 {
+  border-bottom: 2px solid white;
 }
 
 .review-textarea {
@@ -14,4 +20,23 @@
   height: 200px;
   resize: none;
   overflow: scroll;
+}
+
+.review-button-submit {
+  height: 40px;
+  background-color: rgb(253, 102, 102);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.review-button-submit:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}
+
+.review-button-submit:disabled {
+  background-color: gray;
+  cursor: auto;
+  box-shadow: none;
 }

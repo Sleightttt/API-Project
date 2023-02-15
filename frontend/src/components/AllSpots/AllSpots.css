@@ -1,6 +1,7 @@
 .spots-container {
   display: flex;
   flex-wrap: wrap;
+
   /* border: solid 2px blue; */
   margin-left: 7%;
   margin-right: 7%;

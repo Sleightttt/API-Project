@@ -18,7 +18,6 @@ function Spots() {
   let spts = useSelector((state) => state.spots.spots);
   if (spts) {
     spotsloaded = true;
-    console.log(spts.Spots);
   }
   //   console.log(spotsloaded);
   let notLoaded = <div>Unable to load spots, please try again shortly</div>;

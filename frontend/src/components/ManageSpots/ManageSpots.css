@@ -1,0 +1,29 @@
+.update-delete-button {
+  height: 20px;
+  background-color: rgb(253, 102, 102);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 4px;
+  list-style: none;
+}
+
+.update-delete-button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}
+.image-manage {
+  border-radius: 10px;
+  height: 250px;
+  width: 270px;
+  cursor: pointer;
+  /* border: solid 2px purple; */
+}
+
+.manage-spot-card {
+  height: 330px;
+  width: 270px;
+  margin: 10px;
+
+  border-radius: 10px;
+  background-color: rgba(245, 79, 79, 0.33);
+}

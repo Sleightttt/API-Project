@@ -45,6 +45,7 @@ function CreateNewSpot() {
         description,
         name,
         price,
+        previewImg,
       })
     )
       .then(testFunc)

@@ -1,46 +1,54 @@
 import React, { useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./ReviewFormModal.css";
+import { addReviewThunk } from "../../store/reviews";
 
-function ReviewFormModal() {
-  // const dispatch = useDispatch();
-  // const [review, setReview] = useState("");
-  // const [stars, setStars] = useState(1);
-  // const [errors, setErrors] = useState([]);
-  // const { closeModal } = useModal();
+function ReviewFormModal({ props }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [review, setReview] = useState("");
+  const [stars, setStars] = useState(1);
 
-  // const demoHandler = () => {
-  //   dispatch(
-  //     sessionActions.login({ credential: "Demo-lition", password: "password" })
-  //   ).then(closeModal);
-  // };
+  const { closeModal } = useModal();
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setErrors([]);
-  //   return dispatch(sessionActions.login({ credential, password }))
-  //     .then(closeModal)
-  //     .catch(async (res) => {
-  //       const data = await res.json();
-  //       if (data && data.errors) setErrors(data.errors);
-  //     });
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    return dispatch(
+      addReviewThunk(
+        {
+          review,
+          stars,
+        },
+        props
+      )
+    ).then(closeModal);
+
+    // history.replace(`/spots/${props}`);
+  };
 
   return (
     <>
       <div className="reviewModal">
         <h1>Post Your Review</h1>
-        <form className="loginForm">
+        <form className="loginForm" onSubmit={handleSubmit}>
           <label>Description</label>
           <textarea
             className="review-textarea"
             placeholder="Write your review here"
             type="text"
+            onChange={(e) => setReview(e.target.value)}
           ></textarea>
           <label>Stars</label>
-          <input type="text"></input>
+          <input type="text" onChange={(e) => setStars(e.target.value)}></input>
+          <button
+            disabled={review.length < 10}
+            type="submit"
+            className="review-button-submit"
+          >
+            Submit Review
+          </button>
         </form>
       </div>
     </>

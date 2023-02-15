@@ -1,0 +1,46 @@
+.deleteModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px;
+  width: 400px;
+  background-color: rgba(245, 79, 79, 0.484);
+  color: white;
+  border-radius: 12px;
+}
+
+.deleteModal > h1 {
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.orly {
+  color: red;
+}
+
+.deleteModal > h2 {
+  text-align: center;
+}
+
+.delete-button {
+  height: 30px;
+  background-color: rgb(234, 0, 0);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 4px;
+  list-style: none;
+  width: 40%;
+}
+.noThanks {
+  height: 40px;
+  background-color: grey;
+  color: white;
+  border-radius: 12px;
+  margin: 10px 4px;
+  list-style: none;
+  width: 40%;
+}
+
+.deleteModal > button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}
