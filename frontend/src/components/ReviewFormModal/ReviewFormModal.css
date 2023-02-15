@@ -1,0 +1,17 @@
+.reviewModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px;
+  width: 400px;
+}
+
+.review-textarea {
+  background-color: antiquewhite;
+  width: 80%;
+  border-radius: 12px;
+  border: none;
+  height: 200px;
+  resize: none;
+  overflow: scroll;
+}

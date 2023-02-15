@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./GetOneSpot.css";
 import { getOneSpotReviewsThunk } from "../../store/reviews";
+import ReviewFormModal from "../ReviewFormModal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 function GetOneSpot() {
   const dispatch = useDispatch();
@@ -20,7 +22,18 @@ function GetOneSpot() {
 
   let spotLoaded = false;
 
+  let user = useSelector((state) => state.session.user);
   let spot = useSelector((state) => state.spots.oneSpot);
+  console.log("this is the user", user);
+  let reviews = useSelector((state) => state.reviews.reviews.Reviews);
+
+  let userId;
+  let usersReview;
+  let spotOwnedByUser;
+
+  if (user) {
+    userId = user.id;
+  }
 
   if (spot) {
     spotLoaded = true;
@@ -30,7 +43,11 @@ function GetOneSpot() {
     <div>Unable to retrieve details, please try again shortly</div>
   );
 
-  let reviews = useSelector((state) => state.reviews.reviews.Reviews);
+  console.log("these are reviews", reviews);
+
+  if (user && reviews)
+    usersReview = reviews.find((review) => review.userId === userId);
+  if (spot) spotOwnedByUser = spot.ownerId === userId;
 
   return (
     <>
@@ -113,6 +130,18 @@ function GetOneSpot() {
                 ? "New"
                 : "Review"}{" "}
             </h1>
+            {!usersReview && !spotOwnedByUser && userId && (
+              <button>
+                <OpenModalMenuItem
+                  className="login-signup"
+                  itemText="Post Your Review"
+                  modalComponent={<ReviewFormModal />}
+                />
+              </button>
+            )}
+            {spot.numReviews === 0 && userId && !spotOwnedByUser && (
+              <div>Be the first to post a review!</div>
+            )}
             {reviews.map((review) => {
               return (
                 <div key={review.id} className="single-review-container">
