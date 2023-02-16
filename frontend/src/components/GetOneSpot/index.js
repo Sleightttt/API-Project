@@ -148,7 +148,7 @@ function GetOneSpot() {
               <button className="open-review-button">
                 <OpenModalMenuItem
                   className="login-signup"
-                  itemText="Post A Review"
+                  itemText="Post Your Review"
                   modalComponent={<ReviewFormModal props={spotId} />}
                 />
               </button>

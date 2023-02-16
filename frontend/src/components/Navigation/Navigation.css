@@ -26,8 +26,8 @@
 .leftNav {
   /* border: solid rgb(13, 0, 255) 2px; */
   list-style: none;
-  height: 60px;
-  width: 60px;
+  height: 100px;
+  width: 120px;
 }
 
 .profile-pic {

@@ -27,6 +27,7 @@
 
 .signup-form > label {
   position: relative;
+  margin: 10px 0;
 }
 
 .signup-button {

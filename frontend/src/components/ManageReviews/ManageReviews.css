@@ -15,3 +15,9 @@
   margin: 10px 4px;
   list-style: none;
 }
+
+.delete-review-button:hover,
+.edit-review-button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}

@@ -38,9 +38,7 @@ function Spots() {
                 >
                   <img className="image-placeholder" src={spot.previewImage} />
                   <div className="city-review-box">
-                    <div className="city-state">
-                      {spot.city}, {spot.state}
-                    </div>
+                    <div className="city-state">{spot.name}</div>
                     <div className="star-rating">
                       <div className="star">
                         <i className="fas fa-star"></i>:

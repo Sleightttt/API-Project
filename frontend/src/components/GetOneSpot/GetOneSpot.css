@@ -112,14 +112,17 @@
   margin: 10px;
   border: 1px rgb(211, 211, 211) solid;
   background-color: rgba(253, 102, 102, 0.157);
+  border-radius: 12px;
 }
+
 .open-review-button {
   margin-top: 10px;
-  width: 120px;
+  width: 200px;
   height: 40px;
   background-color: rgb(245, 79, 79);
   color: white;
   list-style: none;
+  border-radius: 12px;
 }
 
 .open-review-button:hover {
