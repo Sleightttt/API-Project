@@ -89,7 +89,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     reviewList.push(newReview);
   }
-  console.log(reviewList);
 
   return res.json({ Reviews: reviewList });
 });
