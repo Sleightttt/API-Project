@@ -54,21 +54,29 @@
 .profile-dropdown {
   display: flex;
   flex-direction: column;
-  border: solid rgb(0, 0, 0) 2px;
+  border: solid grey 2px;
   position: relative;
   right: 80px;
-  top: 5px;
-  width: 100px;
+  top: 11px;
+  width: 150px;
+  height: 200px;
   list-style: none;
   justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 5px;
-  background-color: white;
+  background-color: rgb(255, 144, 144);
+  color: white;
 }
 
 .profile-dropdown > li:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.profile-dropdown > li:not(.notyou) {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.726);
+  margin: 5px 0;
 }
 
 .hidden {
@@ -94,4 +102,47 @@
   color: white;
   background-color: rgb(245, 79, 79);
   border-radius: 5px;
+}
+
+.manage-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 40px;
+  width: 80px;
+  background-color: rgba(245, 79, 79, 0.726);
+  color: rgb(255, 255, 255);
+  margin: 3px 0;
+  border-radius: 12px;
+}
+
+.manage-reviews-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 40px;
+  width: 80px;
+  background-color: rgba(245, 79, 79, 0.726);
+  color: rgb(255, 255, 255);
+  margin: 3px 0;
+  border-radius: 12px;
+}
+
+.manage-button:hover,
+.manage-reviews-button:hover,
+.dropdown-logout:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
+}
+
+.dropdown-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 40px;
+  width: 80px;
+  background-color: rgba(245, 79, 79, 0.732);
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
 }

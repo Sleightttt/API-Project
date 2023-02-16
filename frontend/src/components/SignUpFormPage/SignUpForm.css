@@ -4,10 +4,14 @@
   align-items: center;
   height: 600px;
   width: 500px;
-  border-radius: 20px;
-  /* background-color: aqua; */
+  border-radius: 12px;
+  color: white;
+  background-color: rgba(253, 102, 102, 0.561);
 }
 
+.modalTest > h1 {
+  border-bottom: 2px solid white;
+}
 .signup-form {
   display: flex;
   flex-direction: column;
@@ -18,7 +22,7 @@
 .signup-form > input {
   width: 80%;
   border-radius: 5px;
-  background-color: rgb(240, 240, 240);
+  background-color: antiquewhite;
 }
 
 .signup-form > label {

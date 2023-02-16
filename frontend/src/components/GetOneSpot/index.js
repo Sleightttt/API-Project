@@ -3,7 +3,10 @@ import { getOneSpotThunk } from "../../store/spots";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./GetOneSpot.css";
-import { getOneSpotReviewsThunk } from "../../store/reviews";
+import {
+  getOneSpotReviewsThunk,
+  getUsersReviewsThunk,
+} from "../../store/reviews";
 import ReviewFormModal from "../ReviewFormModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
@@ -31,10 +34,8 @@ function GetOneSpot() {
   console.log("this is the user", user);
   const reviews = useSelector((state) => state.reviews.spots);
 
-  console.log("this is the new reviews object", reviews);
-
   const reviewsArr = Object.values(reviews);
-  console.log("reviewsArr", reviewsArr);
+
   ////declaring data checks
   let userId;
   let usersReview;
@@ -44,20 +45,22 @@ function GetOneSpot() {
     userId = user.id;
   }
 
+  useEffect(() => {
+    dispatch(getUsersReviewsThunk(userId));
+  }, []);
+
   if (spot) {
     spotLoaded = true;
   }
 
-  //   console.log(spot);
   let notLoaded = (
     <div>Unable to retrieve details, please try again shortly</div>
   );
 
-  console.log("these are reviews", reviews);
-
   if (user && reviewsArr) {
     usersReview = reviewsArr.find((review) => review.userId === userId);
   }
+
   if (spot) spotOwnedByUser = spot.ownerId === userId;
 
   return (

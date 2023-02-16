@@ -3,13 +3,15 @@
   flex-wrap: wrap;
 
   /* border: solid 2px blue; */
-  margin-left: 7%;
-  margin-right: 7%;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 10px;
 }
 
 .example-spot-card {
   /* border: solid 2px red; */
+  /* flex: 0 0 21%;  */
+
   height: 330px;
   width: 270px;
   margin: 10px;

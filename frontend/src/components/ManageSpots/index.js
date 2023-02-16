@@ -13,6 +13,10 @@ function ManageSpots() {
     dispatch(getUserSpotsThunk());
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllSpotsThunk());
+  }, []);
+
   let spotsLoaded = false;
 
   const userSpots = useSelector((state) => state.spots.userSpots);

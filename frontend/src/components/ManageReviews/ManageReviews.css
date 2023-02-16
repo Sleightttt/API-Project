@@ -1,0 +1,17 @@
+.edit-review-button {
+  height: 20px;
+  background-color: rgb(253, 102, 102);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 4px;
+  list-style: none;
+}
+
+.delete-review-button {
+  height: 20px;
+  background-color: rgb(253, 102, 102);
+  color: white;
+  border-radius: 12px;
+  margin: 10px 4px;
+  list-style: none;
+}

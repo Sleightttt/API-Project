@@ -4,8 +4,13 @@
   align-items: center;
   height: 280px;
   width: 400px;
-  border-radius: 20px;
-  /* background-color: aqua; */
+  border-radius: 12px;
+  background-color: rgba(253, 102, 102, 0.561);
+  color: white;
+}
+
+.loginModal > h1 {
+  border-bottom: 2px solid white;
 }
 
 .error {
@@ -32,7 +37,7 @@
 .loginForm > input {
   width: 80%;
   border-radius: 5px;
-  background-color: rgb(240, 240, 240);
+  background-color: antiquewhite;
 }
 
 .loginForm > label {

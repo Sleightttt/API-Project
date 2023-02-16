@@ -14,6 +14,12 @@ function ProfileButton({ user }) {
 
   const onClicker = () => {
     history.push(`/yourspots`);
+    setShowMenu(false);
+  };
+
+  const onClickerReviews = () => {
+    history.push(`/yourreviews`);
+    setShowMenu(false);
   };
 
   const openMenu = () => {
@@ -57,15 +63,25 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>Hello, {user.username}</li>
-            <li>
-              {user.firstName} {user.lastName}
-            </li>
+
             <li>{user.email}</li>
-            <li>
-              <button onClick={onClicker}>Manage Spots</button>
+            <li className="notyou">
+              <button className="manage-button" onClick={onClicker}>
+                Manage Spots
+              </button>
             </li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li className="notyou">
+              <button
+                className="manage-reviews-button"
+                onClick={onClickerReviews}
+              >
+                Manage Reviews
+              </button>
+            </li>
+            <li className="notyou">
+              <button className="dropdown-logout" onClick={logout}>
+                Log Out
+              </button>
             </li>
           </>
         ) : (

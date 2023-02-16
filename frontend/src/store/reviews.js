@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_SPOT_REVIEWS = "reviews/getSpotReviews";
 const ADD_REVIEW = "reviews/addReview";
+const GET_USERS_REVIEWS = "reviews/getUsersReviews";
 
 const getOneSpotReviewsAction = (oneSpotReviewsData) => {
   return {
@@ -14,6 +15,13 @@ const addReviewAction = (newReview) => {
   return {
     type: ADD_REVIEW,
     newReview,
+  };
+};
+
+const getUsersReviewsAction = (userId) => {
+  return {
+    type: GET_USERS_REVIEWS,
+    userId,
   };
 };
 
@@ -42,6 +50,16 @@ export const addReviewThunk = (newReview, spotId) => async (dispatch) => {
   }
 };
 
+export const getUsersReviewsThunk = (userId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/current`);
+
+  if (response.ok) {
+    const usersReviews = await response.json();
+
+    dispatch(getUsersReviewsAction(usersReviews));
+  }
+};
+
 const initialState = { spots: {}, user: {} };
 
 const reviewsReducer = (state = initialState, action) => {
@@ -60,6 +78,16 @@ const reviewsReducer = (state = initialState, action) => {
     case ADD_REVIEW:
       newState = { ...state };
       newState.spots[action.newReview.id] = action.newReview;
+      return newState;
+
+    case GET_USERS_REVIEWS:
+      newState = { ...state };
+      let reviewData2 = {};
+      // console.log(action.userId);
+      action.userId.Reviews.forEach((review) => {
+        reviewData2[review.id] = review;
+      });
+      newState.user = reviewData2;
       return newState;
     default:
       return state;
