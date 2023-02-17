@@ -16,11 +16,16 @@ function EditSpot() {
       setAddress(spot.address);
       setCity(spot.city);
       setState(spot.state);
-
+      console.log("this is the owner id", spot.ownerId);
+      console.log("this is the user id", user.id);
       setDescription(spot.description);
       setName(spot.name);
       setPrice(spot.price);
       setPreviewImg(spot.SpotImages[0].url ? spot.SpotImages[0].url : "");
+
+      if (!(user.id == spot.ownerId)) {
+        history.push("/");
+      }
     };
 
     prefillFunc();

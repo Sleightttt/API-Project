@@ -145,3 +145,7 @@
 .review-body {
   font-size: 20px;
 }
+
+.fa-star {
+  color: rgb(255, 255, 0);
+}
