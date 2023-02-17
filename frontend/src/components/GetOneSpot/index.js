@@ -34,7 +34,8 @@ function GetOneSpot() {
   const spot = useSelector((state) => state.spots.oneSpot);
   // console.log("this is the user", user);
   const reviews = useSelector((state) => state.reviews.spots);
-  // console.log("this is spot", spot);
+  console.log("these are the reviews", reviews);
+  // const usrRev = useSelector((state) => state.reviews.user);
 
   const reviewsArr = Object.values(reviews);
   // console.log("this is the review arr", reviewsArr);

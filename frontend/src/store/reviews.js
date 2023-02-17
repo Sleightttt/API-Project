@@ -14,10 +14,11 @@ const getOneSpotReviewsAction = (oneSpotReviewsData) => {
   };
 };
 
-const addReviewAction = (newReview) => {
+const addReviewAction = (newReview, user) => {
   return {
     type: ADD_REVIEW,
     newReview,
+    user,
   };
 };
 
@@ -56,7 +57,7 @@ export const getOneSpotReviewsThunk = (spotId) => async (dispatch) => {
   }
 };
 
-export const addReviewThunk = (newReview, spotId) => async (dispatch) => {
+export const addReviewThunk = (newReview, spotId, user) => async (dispatch) => {
   const { review, stars } = newReview;
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
@@ -67,7 +68,7 @@ export const addReviewThunk = (newReview, spotId) => async (dispatch) => {
   });
   if (response.ok) {
     const newReviewData = await response.json();
-    dispatch(addReviewAction(newReviewData));
+    dispatch(addReviewAction(newReviewData, user));
   }
 };
 
@@ -78,6 +79,7 @@ export const getUsersReviewsThunk = (userId) => async (dispatch) => {
     const usersReviews = await response.json();
 
     dispatch(getUsersReviewsAction(usersReviews));
+    return usersReviews;
   }
 };
 
@@ -99,25 +101,40 @@ const reviewsReducer = (state = initialState, action) => {
       return newState;
 
     case ADD_REVIEW:
-      let newRev = action.newReview;
+      let use = action.user;
+      // console.log(action.user);
 
-      newState = { ...state, user: { ...state.user, newRev } };
+      let newRev = action.newReview;
+      newRev.User = { ...use };
+      // console.log(newRev);
+      newState = {
+        ...state,
+        user: { ...state.user, newRev },
+        spots: { ...state.spots, newRev },
+      };
       // newState.spots[action.newReview.id] = action.newReview;
       return newState;
 
     case GET_USERS_REVIEWS:
-      newState = { ...state };
       let reviewData2 = {};
       // console.log(action.userId);
       action.userId.Reviews.forEach((review) => {
         reviewData2[review.id] = review;
       });
-      newState.user = reviewData2;
+      newState = { ...state, user: { ...reviewData2 } };
+
+      // newState.user = reviewData2;
       return newState;
 
     case DELETE_REVIEW:
-      newState = { ...state, user: { ...state.user } };
+      // console.log(action.reviewToDelete);
+      newState = {
+        ...state,
+        user: { ...state.user },
+        spots: { ...state.spots },
+      };
       delete newState.user[action.reviewToDelete];
+      delete newState.spots[action.reviewToDelete];
       return newState;
 
     default:

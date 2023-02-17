@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./ReviewFormModal.css";
 import { addReviewThunk } from "../../store/reviews";
+import { useSelector } from "react-redux";
 
 function ReviewFormModal({ props }) {
   const history = useHistory();
@@ -12,6 +13,7 @@ function ReviewFormModal({ props }) {
   const [stars, setStars] = useState(1);
 
   const { closeModal } = useModal();
+  const user = useSelector((state) => state.session.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +23,8 @@ function ReviewFormModal({ props }) {
           review,
           stars,
         },
-        props
+        props,
+        user
       )
     ).then(closeModal);
 

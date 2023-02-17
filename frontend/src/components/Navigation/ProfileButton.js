@@ -70,14 +70,14 @@ function ProfileButton({ user }) {
                 Manage Spots
               </button>
             </li>
-            <li className="notyou">
+            {/* <li className="notyou">
               <button
                 className="manage-reviews-button"
                 onClick={onClickerReviews}
               >
                 Manage Reviews
               </button>
-            </li>
+            </li> */}
             <li className="notyou">
               <button className="dropdown-logout" onClick={logout}>
                 Log Out

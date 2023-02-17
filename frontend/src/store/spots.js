@@ -73,8 +73,7 @@ export const editSpotThunk = (editSpotData, spotId) => async (dispatch) => {
     city,
     state,
     country,
-    lat,
-    lng,
+
     name,
     description,
     price,
@@ -88,8 +87,8 @@ export const editSpotThunk = (editSpotData, spotId) => async (dispatch) => {
       city,
       state,
       country,
-      lat,
-      lng,
+      lat: 1,
+      lng: 1,
       name,
       description,
       price,
@@ -116,6 +115,7 @@ export const getOneSpotThunk = (spotId) => async (dispatch) => {
   if (response.ok) {
     const oneSpotData = await response.json();
     dispatch(getOneSpotAction(oneSpotData));
+    return oneSpotData;
   }
 };
 
@@ -135,8 +135,7 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
     address,
     city,
     state,
-    lng,
-    lat,
+
     description,
     name,
     price,
@@ -150,8 +149,8 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
       address,
       city,
       state,
-      lng,
-      lat,
+      lng: 1,
+      lat: 1,
       description,
       name,
       price,

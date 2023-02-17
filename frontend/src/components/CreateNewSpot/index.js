@@ -13,8 +13,7 @@ function CreateNewSpot() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
@@ -42,8 +41,7 @@ function CreateNewSpot() {
         address,
         city,
         state,
-        lng,
-        lat,
+
         description,
         name,
         price,
@@ -106,7 +104,7 @@ function CreateNewSpot() {
             required
             placeholder="State"
           ></input>
-          <label>Latitude</label>
+          {/* <label>Latitude</label>
           <input
             type="text"
             value={lat}
@@ -121,7 +119,7 @@ function CreateNewSpot() {
             onChange={(e) => setLng(e.target.value)}
             required
             placeholder="Longitude"
-          ></input>
+          ></input> */}
           <label>Describe your place to guests</label>
           <div>
             Mention the best features of your space, any special amentities like

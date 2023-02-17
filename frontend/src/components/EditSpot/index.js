@@ -7,15 +7,26 @@ function EditSpot() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { spotId } = useParams();
+  // const [correct, setCorrect] = useState(false);
 
   useEffect(() => {
-    dispatch(getOneSpotThunk(spotId)).then(prefillFunc);
-    console.log("getspot fired");
+    const prefillFunc = async () => {
+      const spot = await dispatch(getOneSpotThunk(spotId));
+      setCountry(spot.country);
+      setAddress(spot.address);
+      setCity(spot.city);
+      setState(spot.state);
+
+      setDescription(spot.description);
+      setName(spot.name);
+      setPrice(spot.price);
+      setPreviewImg(spot.SpotImages[0].url ? spot.SpotImages[0].url : "");
+    };
+
+    prefillFunc();
   }, [dispatch, spotId]);
 
   const user = useSelector((state) => state.session.user);
-
-  // console.log("this is the user", user);
 
   let userId;
   if (user) {
@@ -26,6 +37,8 @@ function EditSpot() {
 
   const spot = useSelector((state) => state.spots.oneSpot);
   console.log("this be the spot", spot);
+  // console.log("current store spot id", spot.id);
+  // console.log("edit page  spot id", spotId);
 
   //redirect not logged in users or not spot owners
   // console.log(spot.ownerId, userId);
@@ -34,30 +47,12 @@ function EditSpot() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [previewImg, setPreviewImg] = useState("");
-
-  const prefillFunc = () => {
-    // const spot = useSelector((state) => state.spots.oneSpot);
-    // console.log("this be the spot", spot);
-    if (spot) {
-      setCountry(spot.country);
-      setAddress(spot.address);
-      setCity(spot.city);
-      setState(spot.state);
-      setLat(spot.lat);
-      setLng(spot.lng);
-      setDescription(spot.description);
-      setName(spot.name);
-      setPrice(spot.price);
-      setPreviewImg(spot.SpotImages[0].url ? spot.SpotImages[0].url : "");
-    }
-  };
 
   const handleRedirect = async () => {
     history.push(`/spots/${spotId}`);
@@ -73,8 +68,7 @@ function EditSpot() {
           address,
           city,
           state,
-          lng,
-          lat,
+
           description,
           name,
           price,
@@ -97,7 +91,7 @@ function EditSpot() {
       {spotLoaded && (
         <div>
           <div className="create-spot-container">
-            <h1>Edit Your Spot</h1>
+            <h1>Update Your Spot</h1>
             <h2> Where's your place Located?</h2>
             <h3>
               {" "}
@@ -144,7 +138,7 @@ function EditSpot() {
                 required
                 placeholder="State"
               ></input>
-              <label>Latitude</label>
+              {/* <label>Latitude</label>
               <input
                 type="text"
                 value={lat}
@@ -159,7 +153,7 @@ function EditSpot() {
                 onChange={(e) => setLng(e.target.value)}
                 required
                 placeholder="Longitude"
-              ></input>
+              ></input> */}
               <label>Describe your place to guests</label>
               <div>
                 Mention the best features of your space, any special amentities
