@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import * as spotsActions from "../../store/spots";
 import "./CreateNewSpot.css";
 import { useHistory } from "react-router-dom";
+import { getAllSpotsThunk } from "../../store/spots";
+import { useEffect } from "react";
 
 function CreateNewSpot() {
   const history = useHistory();
@@ -18,10 +20,10 @@ function CreateNewSpot() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [previewImg, setPreviewImg] = useState("");
-  const [image1, setImage1] = useState("");
-  const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState("");
-  const [image4, setImage4] = useState("");
+
+  useEffect(() => {
+    dispatch(getAllSpotsThunk());
+  }, []);
 
   const testFunc = async (resp) => {
     console.log("this is the resp", resp);
@@ -169,34 +171,7 @@ function CreateNewSpot() {
             placeholder="Preview Image URL"
             className="image-input"
           ></input>
-          <input
-            type="text"
-            value={image1}
-            onChange={(e) => setImage1(e.target.value)}
-            placeholder="Image URL"
-            className="image-input"
-          ></input>
-          <input
-            type="text"
-            value={image2}
-            onChange={(e) => setImage2(e.target.value)}
-            placeholder="Image URL"
-            className="image-input"
-          ></input>
-          <input
-            type="text"
-            value={image3}
-            onChange={(e) => setImage3(e.target.value)}
-            placeholder="Image URL"
-            className="image-input"
-          ></input>
-          <input
-            type="text"
-            value={image4}
-            onChange={(e) => setImage4(e.target.value)}
-            placeholder="Image URL"
-            className="image-input"
-          ></input>
+
           <button className="create-new-spot-button" type="submit">
             Create This Spot!
           </button>

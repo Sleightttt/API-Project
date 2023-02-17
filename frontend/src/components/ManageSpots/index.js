@@ -5,24 +5,28 @@ import { getAllSpotsThunk, getUserSpotsThunk } from "../../store/spots";
 import "./ManageSpots.css";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteSpotModal from "../DeleteSpotModal";
+
 function ManageSpots() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getUserSpotsThunk());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllSpotsThunk());
-  }, []);
+  }, [dispatch]);
 
   let spotsLoaded = false;
+  let userSpotArr;
 
-  const userSpots = useSelector((state) => state.spots.userSpots);
+  const userSpots = useSelector((state) => state.spots.userSpot);
+  console.log("this is the users spots", userSpots);
 
-  if (userSpots) {
+  if (Object.values(userSpots).length) {
     spotsLoaded = true;
+    userSpotArr = Object.values(userSpots);
   }
 
   console.log(userSpots);
@@ -38,7 +42,7 @@ function ManageSpots() {
         </button>
         <div className="spots-container">
           {spotsLoaded &&
-            userSpots.Spots.map((spot) => {
+            userSpotArr.map((spot) => {
               return (
                 <div key={spot.id} className="manage-spot-card">
                   <img

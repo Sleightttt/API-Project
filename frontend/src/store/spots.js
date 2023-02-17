@@ -141,7 +141,6 @@ export const createSpotThunk = (spotToCreate) => async (dispatch) => {
     name,
     price,
     previewImg,
-    image,
   } = spotToCreate;
 
   const response = await csrfFetch("/api/spots", {
@@ -190,44 +189,59 @@ export const getUserSpotsThunk = () => async (dispatch) => {
 
 ////////////
 
-const initialState = { spots: null };
+const initialState = { spots: null, oneSpot: {}, userSpot: {} };
 
 const spotsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case GET_ALL_SPOTS:
-      newState = Object.assign({}, state);
-      newState.spots = action.allSpotsData;
+      let allSpots = {};
+      // console.log(action.allSpotsData);
+      action.allSpotsData.Spots.forEach((spot) => {
+        allSpots[spot.id] = spot;
+      });
+
+      newState = { ...state, spots: { ...allSpots } };
       // console.log(newState);
       return newState;
 
     case GET_ONE_SPOT:
       newState = Object.assign({}, state);
       newState.oneSpot = action.oneSpotData;
+
       return newState;
 
     case CREATE_SPOT:
-      newState = Object.assign({}, state);
-      // console.log(action.spotToCreate);
-      newState.spots.Spots[action.spotToCreate] = action.spotToCreate;
-      // console.log(newState);
+      let newSpot = action.spotToCreate;
+      newState = { ...state, spots: { ...state.spots, newSpot } };
+
+      // newState = Object.assign({}, state);
+      // // console.log(action.spotToCreate);
+      // newState.spots.Spots[action.spotToCreate] = action.spotToCreate;
+      // // console.log(newState);
       return newState;
 
     case GET_USER_SPOTS:
-      newState = Object.assign({}, state);
-      newState.userSpots = action.userSpotsData;
+      // console.log("-----", action.userSpotsData);
+      let userSpotsInfo = {};
+      action.userSpotsData.Spots.forEach((spot) => {
+        userSpotsInfo[spot.id] = spot;
+      });
+
+      newState = { ...state, userSpot: { userSpotsInfo } };
+
+      newState.userSpot = userSpotsInfo;
       return newState;
 
     //needs to be normalized
 
     case DELETE_SPOT:
-      newState = Object.assign({}, state);
-      let spt = newState.userSpots.Spots;
-      for (let i = 0; i < spt.length; i++) {
-        if (spt[i].id === action.spotToDelete) {
-          delete spt[i];
-        }
-      }
+      newState = {
+        ...state,
+        spots: { ...state.spots },
+        userSpot: { ...state.userSpot },
+      };
+      delete newState.userSpot[action.spotToDelete];
 
       return newState;
 

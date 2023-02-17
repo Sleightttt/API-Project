@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpotThunk } from "../../store/spots";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./GetOneSpot.css";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../store/reviews";
 import ReviewFormModal from "../ReviewFormModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteReviewModal from "../DeleteReviewModal";
 
 function GetOneSpot() {
   const dispatch = useDispatch();
@@ -33,9 +34,10 @@ function GetOneSpot() {
   const spot = useSelector((state) => state.spots.oneSpot);
   console.log("this is the user", user);
   const reviews = useSelector((state) => state.reviews.spots);
+  console.log("this is spot", spot);
 
   const reviewsArr = Object.values(reviews);
-
+  console.log("this is the review arr", reviewsArr);
   ////declaring data checks
   let userId;
   let usersReview;
@@ -47,9 +49,9 @@ function GetOneSpot() {
 
   useEffect(() => {
     dispatch(getUsersReviewsThunk(userId));
-  }, []);
+  }, [dispatch]);
 
-  if (spot) {
+  if (Object.values(spot).length) {
     spotLoaded = true;
   }
 
@@ -156,11 +158,31 @@ function GetOneSpot() {
             {spot.numReviews === 0 && userId && !spotOwnedByUser && (
               <div>Be the first to post a review!</div>
             )}
-            {reviewsArr.map((review) => {
+            {reviewsArr.reverse().map((review) => {
+              let date = new Date(review.updatedAt);
+              let month = date.toLocaleString("default", { month: "short" });
+              let year = date.getFullYear();
               return (
                 <div key={review.id} className="single-review-container">
-                  <div className="review-name">{review.User.firstName}</div>
-                  <div className="review-updatedAt">{review.updatedAt}</div>
+                  <div className="review-name">
+                    {review.User.firstName}{" "}
+                    {userId === review.userId && (
+                      <button className="edit-review-button">
+                        <OpenModalMenuItem
+                          className="login-signup"
+                          itemText="Delete Review"
+                          modalComponent={
+                            <DeleteReviewModal props={review.id} />
+                          }
+                        />
+                      </button>
+                    )}
+                  </div>
+                  {console.log("------", review)}
+
+                  <div className="review-updatedAt">
+                    {month}, {year}
+                  </div>
                   <div className="review-body"> {review.review}</div>
                 </div>
               );

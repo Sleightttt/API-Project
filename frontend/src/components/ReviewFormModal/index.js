@@ -31,7 +31,7 @@ function ReviewFormModal({ props }) {
   return (
     <>
       <div className="reviewModal">
-        <h1>Post Your Review</h1>
+        <h1>How was your stay?</h1>
         <form className="loginForm" onSubmit={handleSubmit}>
           <label>Description</label>
           <textarea
@@ -40,8 +40,58 @@ function ReviewFormModal({ props }) {
             type="text"
             onChange={(e) => setReview(e.target.value)}
           ></textarea>
-          <label>Stars</label>
-          <input type="text" onChange={(e) => setStars(e.target.value)}></input>
+          <div className="rate">
+            <input
+              onChange={(e) => setStars(e.target.value)}
+              type="radio"
+              id="star5"
+              name="rate"
+              value="5"
+            />
+            <label htmlFor="star5" title="text">
+              5 stars
+            </label>
+            <input
+              onChange={(e) => setStars(e.target.value)}
+              type="radio"
+              id="star4"
+              name="rate"
+              value="4"
+            />
+            <label htmlFor="star4" title="text">
+              4 stars
+            </label>
+            <input
+              onChange={(e) => setStars(e.target.value)}
+              type="radio"
+              id="star3"
+              name="rate"
+              value="3"
+            />
+            <label htmlFor="star3" title="text">
+              3 stars
+            </label>
+            <input
+              onChange={(e) => setStars(e.target.value)}
+              type="radio"
+              id="star2"
+              name="rate"
+              value="2"
+            />
+            <label htmlFor="star2" title="text">
+              2 stars
+            </label>
+            <input
+              onChange={(e) => setStars(e.target.value)}
+              type="radio"
+              id="star1"
+              name="rate"
+              value="1"
+            />
+            <label htmlFor="star1" title="text">
+              1 star
+            </label>
+          </div>
           <button
             disabled={review.length < 10}
             type="submit"

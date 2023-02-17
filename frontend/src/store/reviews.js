@@ -3,6 +3,9 @@ import { csrfFetch } from "./csrf";
 const GET_SPOT_REVIEWS = "reviews/getSpotReviews";
 const ADD_REVIEW = "reviews/addReview";
 const GET_USERS_REVIEWS = "reviews/getUsersReviews";
+const DELETE_REVIEW = "/reviews/deleteReviews";
+
+/////////////////////////////
 
 const getOneSpotReviewsAction = (oneSpotReviewsData) => {
   return {
@@ -23,6 +26,24 @@ const getUsersReviewsAction = (userId) => {
     type: GET_USERS_REVIEWS,
     userId,
   };
+};
+
+const deleteReviewAction = (reviewToDelete) => {
+  return {
+    type: DELETE_REVIEW,
+    reviewToDelete,
+  };
+};
+
+/////////////////////////////
+
+export const deleteReviewThunk = (reviewToDelete) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${reviewToDelete}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(deleteReviewAction(reviewToDelete));
+  }
 };
 
 export const getOneSpotReviewsThunk = (spotId) => async (dispatch) => {
@@ -66,18 +87,22 @@ const reviewsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case GET_SPOT_REVIEWS:
-      newState = { ...state };
       let reviewData = {};
       action.oneSpotReviewsData.Reviews.forEach((review) => {
         reviewData[review.id] = review;
       });
-      newState.spots = reviewData;
+
+      newState = { ...state, spots: { ...reviewData } };
+
+      // newState.spots = reviewData;
 
       return newState;
 
     case ADD_REVIEW:
-      newState = { ...state };
-      newState.spots[action.newReview.id] = action.newReview;
+      let newRev = action.newReview;
+
+      newState = { ...state, user: { ...state.user, newRev } };
+      // newState.spots[action.newReview.id] = action.newReview;
       return newState;
 
     case GET_USERS_REVIEWS:
@@ -89,6 +114,12 @@ const reviewsReducer = (state = initialState, action) => {
       });
       newState.user = reviewData2;
       return newState;
+
+    case DELETE_REVIEW:
+      newState = { ...state, user: { ...state.user } };
+      delete newState.user[action.reviewToDelete];
+      return newState;
+
     default:
       return state;
   }

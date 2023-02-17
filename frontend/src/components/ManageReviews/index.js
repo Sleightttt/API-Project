@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./ManageReviews.css";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { getUsersReviewsThunk } from "../../store/reviews";
+import DeleteReviewModal from "../DeleteReviewModal";
 
 function ManageReviews() {
   const dispatch = useDispatch();
@@ -13,14 +14,21 @@ function ManageReviews() {
 
   useEffect(() => {
     dispatch(getUsersReviewsThunk(user.id));
-  }, []);
+  }, [dispatch]);
 
   const reviewsArr = Object.values(reviews);
-  console.log(reviewsArr);
+  console.log("this is reviews arr", reviewsArr);
+
+  // const delReviewButton = (id) => {
+  //   dispatch(deleteReviewThunk(id));
+  // };
+
+  let noReviews = <div>Please visit a spot to post a review</div>;
 
   return (
     <>
-      <h1>Manage Reviews</h1>
+      <h1>My Reviews</h1>
+      {!reviewsArr.length && noReviews}
       <div>
         {reviewsArr.map((review) => {
           return (
@@ -29,8 +37,13 @@ function ManageReviews() {
               <div className="review-updatedAt">{review.updatedAt}</div>
               <div className="review-body"> {review.review}</div>
               <div>
-                <button className="edit-review-button">Edit Review</button>
-                <button className="delete-review-button">Delete Review</button>
+                <button className="delete-review-button">
+                  <OpenModalMenuItem
+                    className="login-signup"
+                    itemText="Delete Review"
+                    modalComponent={<DeleteReviewModal props={review.id} />}
+                  />
+                </button>
               </div>
             </div>
           );

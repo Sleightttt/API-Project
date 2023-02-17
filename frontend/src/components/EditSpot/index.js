@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { editSpotThunk, getOneSpotThunk } from "../../store/spots";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getAllSpotsThunk } from "../../store/spots";
 
 function EditSpot() {
   const dispatch = useDispatch();
@@ -10,13 +9,13 @@ function EditSpot() {
   const { spotId } = useParams();
 
   useEffect(() => {
-    dispatch(getOneSpotThunk(spotId));
+    dispatch(getOneSpotThunk(spotId)).then(prefillFunc);
   }, [dispatch, spotId]);
 
   const user = useSelector((state) => state.session.user);
-  const spottt = useSelector((state) => state.spots.oneSpot);
-  console.log("this is the user", user);
-  console.log("this is the spot", spottt);
+
+  // console.log("this is the user", user);
+
   let userId;
   if (user) {
     userId = user.id;
@@ -27,29 +26,37 @@ function EditSpot() {
   const spot = useSelector((state) => state.spots.oneSpot);
   console.log("this be the spot", spot);
 
-  //redirect not logged in users or not spot owners
-  // if (!spottt) history.push("/");
-  // if (spottt.ownerId !== userId) {
-  //   history.push("/");
-  // }
+  const prefillFunc = async () => {
+    // const spot = useSelector((state) => state.spots.oneSpot);
+    // console.log("this be the spot", spot);
+    if (spot) {
+      setCountry(spot.country);
+      setAddress(spot.address);
+      setCity(spot.city);
+      setState(spot.state);
+      setLat(spot.lat);
+      setLng(spot.lng);
+      setDescription(spot.description);
+      setName(spot.name);
+      setPrice(spot.price);
+      setPreviewImg(spot.SpotImages[0].url ? spot.SpotImages[0].url : "");
+    }
+  };
 
-  const [country, setCountry] = useState(spot.country);
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [lat, setLat] = useState(spot.lat);
-  const [lng, setLng] = useState(spot.lng);
-  const [description, setDescription] = useState(spot.description);
+  //redirect not logged in users or not spot owners
+  // console.log(spot.ownerId, userId);
+
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState(spot.name);
-  const [price, setPrice] = useState(spot.price);
-  const [previewImg, setPreviewImg] = useState(
-    spot.SpotImages[0].url ? spot.SpotImages[0].url : ""
-  );
-  const [image1, setImage1] = useState("");
-  const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState("");
-  const [image4, setImage4] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [previewImg, setPreviewImg] = useState("");
 
   const handleRedirect = async () => {
     history.push(`/spots/${spotId}`);
@@ -85,7 +92,7 @@ function EditSpot() {
 
   return (
     <>
-      {!spotLoaded && notLoadedYet}
+      {!spotLoaded && !spot && notLoadedYet}
       {spotLoaded && (
         <div>
           <div className="create-spot-container">
@@ -204,34 +211,7 @@ function EditSpot() {
                 placeholder="Preview Image URL"
                 className="image-input"
               ></input>
-              <input
-                type="text"
-                value={image1}
-                onChange={(e) => setImage1(e.target.value)}
-                placeholder="Image URL"
-                className="image-input"
-              ></input>
-              <input
-                type="text"
-                value={image2}
-                onChange={(e) => setImage2(e.target.value)}
-                placeholder="Image URL"
-                className="image-input"
-              ></input>
-              <input
-                type="text"
-                value={image3}
-                onChange={(e) => setImage3(e.target.value)}
-                placeholder="Image URL"
-                className="image-input"
-              ></input>
-              <input
-                type="text"
-                value={image4}
-                onChange={(e) => setImage4(e.target.value)}
-                placeholder="Image URL"
-                className="image-input"
-              ></input>
+
               <button className="create-new-spot-button" type="submit">
                 Update Your Spot
               </button>

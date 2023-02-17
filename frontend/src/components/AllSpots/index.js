@@ -6,19 +6,25 @@ import "./AllSpots.css";
 
 function Spots() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getAllSpotsThunk());
   }, []);
 
-  const history = useHistory();
-
   let spotsloaded = false;
-
+  let allSpotsArr;
   let spts = useSelector((state) => state.spots.spots);
   if (spts) {
     spotsloaded = true;
   }
+  console.log("this is spts", spts);
+
+  if (spts) {
+    allSpotsArr = Object.values(spts);
+  }
+
+  console.log(allSpotsArr);
   //   console.log(spotsloaded);
   let notLoaded = <div>Unable to load spots, please try again shortly</div>;
 
@@ -29,7 +35,7 @@ function Spots() {
         <div> </div>
         <div className="spots-container">
           {spotsloaded &&
-            spts.Spots.map((spot) => {
+            allSpotsArr.map((spot) => {
               return (
                 <div
                   key={spot.id}
