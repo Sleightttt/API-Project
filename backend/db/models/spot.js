@@ -43,7 +43,12 @@ module.exports = (sequelize, DataTypes) => {
       lat: { type: DataTypes.DECIMAL },
       lng: { type: DataTypes.DECIMAL },
       name: { type: DataTypes.STRING },
-      description: { type: DataTypes.TEXT },
+      description: {
+        type: DataTypes.TEXT,
+        validate: {
+          len: [30, 3000],
+        },
+      },
       price: { type: DataTypes.DECIMAL },
     },
     {
