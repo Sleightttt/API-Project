@@ -32,12 +32,12 @@ function GetOneSpot() {
   ////grabbing data from state
   const user = useSelector((state) => state.session.user);
   const spot = useSelector((state) => state.spots.oneSpot);
-  console.log("this is the user", user);
+  // console.log("this is the user", user);
   const reviews = useSelector((state) => state.reviews.spots);
-  console.log("this is spot", spot);
+  // console.log("this is spot", spot);
 
   const reviewsArr = Object.values(reviews);
-  console.log("this is the review arr", reviewsArr);
+  // console.log("this is the review arr", reviewsArr);
   ////declaring data checks
   let userId;
   let usersReview;
@@ -49,7 +49,7 @@ function GetOneSpot() {
 
   useEffect(() => {
     dispatch(getUsersReviewsThunk(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (Object.values(spot).length) {
     spotLoaded = true;
@@ -178,7 +178,7 @@ function GetOneSpot() {
                       </button>
                     )}
                   </div>
-                  {console.log("------", review)}
+                  {/* {console.log("------", review)} */}
 
                   <div className="review-updatedAt">
                     {month}, {year}

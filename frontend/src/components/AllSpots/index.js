@@ -18,13 +18,13 @@ function Spots() {
   if (spts) {
     spotsloaded = true;
   }
-  console.log("this is spts", spts);
+  // console.log("this is spts", spts);
 
   if (spts) {
     allSpotsArr = Object.values(spts);
   }
 
-  console.log(allSpotsArr);
+  // console.log(allSpotsArr);
   //   console.log(spotsloaded);
   let notLoaded = <div>Unable to load spots, please try again shortly</div>;
 

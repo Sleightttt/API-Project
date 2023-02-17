@@ -206,8 +206,10 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
 
     case GET_ONE_SPOT:
-      newState = Object.assign({}, state);
-      newState.oneSpot = action.oneSpotData;
+      // console.log("=======", action.oneSpotData);
+      let getSpot = action.oneSpotData;
+      newState = { ...state, oneSpot: { ...getSpot } };
+      // newState.oneSpot = action.oneSpotData;
 
       return newState;
 

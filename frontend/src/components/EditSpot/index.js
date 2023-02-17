@@ -10,6 +10,7 @@ function EditSpot() {
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId)).then(prefillFunc);
+    console.log("getspot fired");
   }, [dispatch, spotId]);
 
   const user = useSelector((state) => state.session.user);
@@ -26,7 +27,22 @@ function EditSpot() {
   const spot = useSelector((state) => state.spots.oneSpot);
   console.log("this be the spot", spot);
 
-  const prefillFunc = async () => {
+  //redirect not logged in users or not spot owners
+  // console.log(spot.ownerId, userId);
+
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [previewImg, setPreviewImg] = useState("");
+
+  const prefillFunc = () => {
     // const spot = useSelector((state) => state.spots.oneSpot);
     // console.log("this be the spot", spot);
     if (spot) {
@@ -42,21 +58,6 @@ function EditSpot() {
       setPreviewImg(spot.SpotImages[0].url ? spot.SpotImages[0].url : "");
     }
   };
-
-  //redirect not logged in users or not spot owners
-  // console.log(spot.ownerId, userId);
-
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
-  const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [previewImg, setPreviewImg] = useState("");
 
   const handleRedirect = async () => {
     history.push(`/spots/${spotId}`);

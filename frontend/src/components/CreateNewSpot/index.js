@@ -26,7 +26,7 @@ function CreateNewSpot() {
   }, []);
 
   const testFunc = async (resp) => {
-    console.log("this is the resp", resp);
+    // console.log("this is the resp", resp);
     // const data = await resp.json();
 
     history.push(`/spots/${resp}`);

@@ -14,7 +14,7 @@ function ManageReviews() {
 
   useEffect(() => {
     dispatch(getUsersReviewsThunk(user.id));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   const reviewsArr = Object.values(reviews);
   console.log("this is reviews arr", reviewsArr);
