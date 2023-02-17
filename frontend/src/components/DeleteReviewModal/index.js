@@ -2,17 +2,25 @@ import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteReviewThunk } from "../../store/reviews";
+import { deleteReviewThunk, getOneSpotReviewsThunk } from "../../store/reviews";
+import { getOneSpotThunk } from "../../store/spots";
 import "./DeleteReviewModal.css";
 
-function DeleteReviewModal({ props }) {
+function DeleteReviewModal(props, spotId) {
   const dispatch = useDispatch();
   console.log(props);
   const { closeModal } = useModal();
 
+  const reviewHandler = () => {
+    dispatch(getOneSpotThunk(props.spotId));
+    dispatch(getOneSpotReviewsThunk(props.spotId));
+    closeModal();
+  };
+
   const handleDelete = (e) => {
     e.preventDefault();
-    return dispatch(deleteReviewThunk(props)).then(closeModal);
+
+    return dispatch(deleteReviewThunk(props.props)).then(reviewHandler);
   };
   return (
     <>

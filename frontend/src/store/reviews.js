@@ -87,6 +87,7 @@ const initialState = { spots: {}, user: {} };
 
 const reviewsReducer = (state = initialState, action) => {
   let newState;
+
   switch (action.type) {
     case GET_SPOT_REVIEWS:
       let reviewData = {};
@@ -109,9 +110,11 @@ const reviewsReducer = (state = initialState, action) => {
       // console.log(newRev);
       newState = {
         ...state,
-        user: { ...state.user, newRev },
-        spots: { ...state.spots, newRev },
+        user: { ...state.user },
+        spots: { ...state.spots },
       };
+      newState.user[newRev.id] = { ...newRev };
+      newState.spots[newRev.id] = { ...newRev };
       // newState.spots[action.newReview.id] = action.newReview;
       return newState;
 
@@ -135,6 +138,7 @@ const reviewsReducer = (state = initialState, action) => {
       };
       delete newState.user[action.reviewToDelete];
       delete newState.spots[action.reviewToDelete];
+
       return newState;
 
     default:

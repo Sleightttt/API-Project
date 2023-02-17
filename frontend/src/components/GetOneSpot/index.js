@@ -34,7 +34,7 @@ function GetOneSpot() {
   const spot = useSelector((state) => state.spots.oneSpot);
   // console.log("this is the user", user);
   const reviews = useSelector((state) => state.reviews.spots);
-  console.log("these are the reviews", reviews);
+
   // const usrRev = useSelector((state) => state.reviews.user);
 
   const reviewsArr = Object.values(reviews);
@@ -173,7 +173,10 @@ function GetOneSpot() {
                           className="login-signup"
                           itemText="Delete Review"
                           modalComponent={
-                            <DeleteReviewModal props={review.id} />
+                            <DeleteReviewModal
+                              spotId={spotId}
+                              props={review.id}
+                            />
                           }
                         />
                       </button>

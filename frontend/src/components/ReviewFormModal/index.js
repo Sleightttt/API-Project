@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./ReviewFormModal.css";
-import { addReviewThunk } from "../../store/reviews";
+import { addReviewThunk, getOneSpotReviewsThunk } from "../../store/reviews";
 import { useSelector } from "react-redux";
+import { getOneSpotThunk } from "../../store/spots";
 
 function ReviewFormModal({ props }) {
   const history = useHistory();
@@ -15,8 +16,16 @@ function ReviewFormModal({ props }) {
   const { closeModal } = useModal();
   const user = useSelector((state) => state.session.user);
 
+  const reviewHandler = () => {
+    dispatch(getOneSpotThunk(props));
+    dispatch(getOneSpotReviewsThunk(props));
+    closeModal();
+  };
+
   const handleSubmit = (e) => {
+    console.log(props, "props");
     e.preventDefault();
+
     return dispatch(
       addReviewThunk(
         {
@@ -26,7 +35,7 @@ function ReviewFormModal({ props }) {
         props,
         user
       )
-    ).then(closeModal);
+    ).then(reviewHandler);
 
     // history.replace(`/spots/${props}`);
   };
