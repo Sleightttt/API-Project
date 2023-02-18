@@ -21,7 +21,7 @@ module.exports = {
       [
         {
           spotId: 1,
-          userId: 1,
+          userId: 2,
           review:
             "Nam ultrices ipsum vitae quam suscipit, non semper ante bibendum. Donec consectetur sollicitudin eros quis faucibus. Quisque porta mauris eget leo molestie cursus. Vivamus vitae diam at mauris cursus maximus. Duis facilisis fermentum magna. Curabitur sit amet dui felis. Fusce vitae felis diam.",
           stars: 1,
