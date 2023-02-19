@@ -6,7 +6,7 @@
   width: 500px;
   border-radius: 12px;
   color: white;
-  background-color: rgba(253, 102, 102, 0.561);
+  background-color: rgb(64, 64, 64);
 }
 
 .modalTest > h1 {
@@ -22,7 +22,7 @@
 .signup-form > input {
   width: 80%;
   border-radius: 5px;
-  background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
 }
 
 .signup-form > label {

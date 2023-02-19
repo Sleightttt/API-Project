@@ -5,7 +5,7 @@
   height: 320px;
   width: 400px;
   border-radius: 12px;
-  background-color: rgba(253, 102, 102, 0.561);
+  background-color: rgb(64, 64, 64);
   color: white;
 }
 
@@ -37,7 +37,7 @@
 .loginForm > input {
   width: 80%;
   border-radius: 5px;
-  background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
 }
 
 .loginForm > label {
@@ -68,7 +68,7 @@
   padding: 0;
   border: none;
   background: none;
-  color: rgb(0, 72, 181);
+  color: rgb(46, 130, 255);
   padding-bottom: 15px;
 }
 
