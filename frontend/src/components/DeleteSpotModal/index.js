@@ -23,10 +23,10 @@ function DeleteSpotModal({ props }) {
           spot?
         </h2>
         <button className="delete-button" onClick={handleDelete}>
-          OH YEAH
+          Yes
         </button>
         <button className="noThanks" onClick={closeModal}>
-          OH NO
+          No
         </button>
       </div>
     </>

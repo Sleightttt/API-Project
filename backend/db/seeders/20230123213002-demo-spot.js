@@ -13,13 +13,13 @@ module.exports = {
       [
         {
           ownerId: 1,
-          address: "testaddress",
-          city: "testcity",
-          state: "teststate",
-          country: "testcountry",
+          address: "1111 test ave",
+          city: "Chino",
+          state: "California",
+          country: "US",
           lat: 1,
           lng: 1,
-          name: "testname",
+          name: "The Test Spot1",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 111,
@@ -32,7 +32,7 @@ module.exports = {
           country: "testcountry2",
           lat: 2,
           lng: 2,
-          name: "testname2",
+          name: "The Test Spot2",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 222,
@@ -45,7 +45,7 @@ module.exports = {
           country: "testcountry3",
           lat: 3,
           lng: 3,
-          name: "testname3",
+          name: "The Test Spot3",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 333,
@@ -58,7 +58,7 @@ module.exports = {
           country: "testcountry4",
           lat: 4,
           lng: 4,
-          name: "testname4",
+          name: "The Test Spot4",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 444,
@@ -71,7 +71,7 @@ module.exports = {
           country: "testcountry5",
           lat: 5,
           lng: 5,
-          name: "testname5",
+          name: "The Test Spot5",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 555,
@@ -84,7 +84,7 @@ module.exports = {
           country: "testcountry6",
           lat: 6,
           lng: 6,
-          name: "testname6",
+          name: "The Test Spot6",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 666,
@@ -97,7 +97,7 @@ module.exports = {
           country: "testcountry7",
           lat: 7,
           lng: 7,
-          name: "testname7",
+          name: "The Test Spot7",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget nisi eget ante suscipit molestie. Integer ullamcorper urna in velit consequat, ut iaculis ex sollicitudin. Donec nulla lectus, elementum malesuada cursus non, vehicula nec magna. Praesent vitae magna tempus nulla luctus ornare. Nullam ac magna lacinia, volutpat diam eget, facilisis dui. Vestibulum tristique consequat blandit. Aliquam at odio malesuada, accumsan magna nec, vehicula lectus. Aenean pretium libero eget iaculis tristique. Etiam et eleifend sem. Sed pretium risus et libero tristique, et lobortis elit lobortis. Sed eu risus non sapien varius volutpat at a tellus. Praesent placerat lorem metus, sit amet ultrices nunc tempus eget. Aliquam varius lorem vitae augue molestie cursus.",
           price: 777,

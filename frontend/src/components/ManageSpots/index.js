@@ -63,7 +63,7 @@ function ManageSpots() {
                         : "New"}
                     </div>
                   </div>
-                  <div className="price">
+                  <div className="price2">
                     <span className="bold">${spot.price}</span> night{" "}
                     <button
                       className="update-delete-button"

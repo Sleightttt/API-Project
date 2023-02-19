@@ -3,7 +3,7 @@
   background-color: rgb(253, 102, 102);
   color: white;
   border-radius: 12px;
-  margin: 10px 2px;
+  margin: 10px 1px;
   list-style: none;
 }
 
@@ -27,4 +27,8 @@
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.33);
   border: 2.5px solid black;
+}
+
+.price2 {
+  font-size: 15px;
 }

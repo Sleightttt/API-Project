@@ -127,7 +127,7 @@ function GetOneSpot() {
                 onClick={() => alert("Feature coming soon...")}
               >
                 {" "}
-                Reserve{" "}
+                Register{" "}
               </button>
             </div>
           </div>
