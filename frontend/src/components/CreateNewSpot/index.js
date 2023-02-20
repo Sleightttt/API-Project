@@ -170,7 +170,20 @@ function CreateNewSpot() {
             className="image-input"
           ></input>
 
-          <button className="create-new-spot-button" type="submit">
+          <button
+            className="create-new-spot-button"
+            type="submit"
+            disabled={
+              country.length < 1 ||
+              address.length < 1 ||
+              city.length < 1 ||
+              state.length < 1 ||
+              description.length < 1 ||
+              name.length < 1 ||
+              price.length < 1 ||
+              previewImg.length < 1
+            }
+          >
             Create This Spot!
           </button>
         </form>

@@ -58,3 +58,8 @@ textarea {
   cursor: pointer;
   box-shadow: 2px 2px black;
 }
+
+.create-new-spot-button:disabled {
+  cursor: auto;
+  background-color: gray;
+}

@@ -106,7 +106,10 @@ function SignUpFormModal() {
             disabled={
               password.length < 6 ||
               username.length < 4 ||
-              password !== confirmPassword
+              password !== confirmPassword ||
+              firstName.length < 1 ||
+              lastName.length < 1 ||
+              email.length < 1
             }
           >
             Sign Up
